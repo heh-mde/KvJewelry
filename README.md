@@ -105,6 +105,6 @@
 #
 ![constructor](./assets/Diag6.png)
 
-##Етапи розробки
+## Етапи розробки
 
 ![constructor](./assets/Timeline.png)
