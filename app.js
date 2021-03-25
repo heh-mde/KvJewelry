@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.static(__dirname + "/public"));
 app.get("/", function(req,res){
-	res.send(pug.renderFile(__dirname + '/public/test.pug'));
+	res.send(pug.renderFile(__dirname + '/public/home.pug'));
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000)

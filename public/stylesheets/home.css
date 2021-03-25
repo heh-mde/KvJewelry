@@ -1,0 +1,84 @@
+.home{
+	width: 1300px;
+	margin: auto;
+}
+
+hr{
+	border: none;
+	background-color: brown;
+	color: brown;
+	height: 3px;
+	width: 1000px;
+	margin-left: 20px;
+	margin-bottom: 5px;
+}
+
+.banner_main{
+	position: relative;
+	margin: auto;
+	margin-bottom: 100px;
+	height: 550px;
+	width: 1200px;
+	background: url(../images/design.png) no-repeat;
+	box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+}
+
+.banner_main_link {
+	position: absolute;
+	top: 250px;
+	left: 160px;
+	width: 400px;
+	height: 150px;
+	z-index: 9999;
+    color: #232323;
+    background: transparent;
+    border: 2px solid #232323;
+    font-size: 25px;
+    letter-spacing: .1em;
+    font-family: 'Montserrat', sans-serif;
+    padding: 30px;
+    padding-top: 60px;
+    transition: .2s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.banner_main_link:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 100%;
+    height: 100%;
+    background: #32D4E2;
+    z-index: -1;
+    transition: .25s ease;
+    transform: translate(0, 0);
+}
+
+.banner_main_link:hover:before {
+    transform: translate(10px, 10px);
+}
+
+.new_devider {
+	display: inline-block;
+	font-size: 30px;
+}
+
+.new_devider_link {
+	display: inline-block;
+	text-decoration: none;
+	font-size: 22px;
+	color: #2b13b3;
+	font-family: FontAwesome;
+}
+
+.new_devider_link:after {
+	content: "\f039"
+}
+
+.new {
+	width: 100%;
+	height: 300px;
+	border: 1px solid;
+}
