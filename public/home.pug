@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" href="http://hehmde.xyz:63000/stylesheets/home.css">
+	<link rel="stylesheet" href="/stylesheets/home.css">
+	<link rel="stylesheet" href="/stylesheets/productsBlock.css">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/client_scripts/newproducts.js"></script>
+	<script type="text/javascript" src="/client_scripts/newProducts.js"></script>
 	include header.html
 </head>
 <body>
 	<div class="home">
 		<div class="banner_main">
-			<a class="banner_main_link" href="">Перейти к конструктору</a>
+			<a class="banner_main_link" href="/constructor">Перейти к конструктору</a>
 		</div>
 		<p class="new_devider">Новинки</p>
 		<hr class="new_devider_line">
-		<a class="new_devider_link" href="">Весь каталог</a>
+		<a class="new_devider_link" href="/products/rings">Весь каталог</a>
 		<div class="new_list"></div>
 		<hr>
 		<div class="info_links"></div>
 	</div>
-	<script type="text/javascript">getNew()</script>
+	<script type="text/javascript">getNew("rings", 5)</script>
 </body>
 </html>

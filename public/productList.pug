@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.2/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/ui-lightness/jquery-ui.css">
+	<script type="text/javascript" src="/client_scripts/allProducts.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+	include header.html
+	<link rel="stylesheet" href="http://hehmde.xyz:63000/stylesheets/productsBlock.css">
+	<link rel="stylesheet" href="http://hehmde.xyz:63000/stylesheets/productList.css">
+
+</head>
+<body>
+	<div class="filters_block">
+		<button class="filter" id="sort_filter">Сортировка</button>
+		<button class="filter" id="metal_filter">Металл</button>
+		<div class="filter" id="price_filter">Цена:
+			<input class="price_form" id="price_min"> -
+			<input class="price_form" id="price_max">
+		</div>
+		<div id="price_slider"></div>
+	</div>
+	<div class="product_block"></div> 
+	<script type="text/javascript">getAll()</script>
+	<script type="text/javascript">$("#price_slider").slider({range:true,min:500,max:50000,values: [ 500, 50000],slide:function(event,ui){$("#price_min").val(ui.values[0]);$("#price_max").val(ui.values[1])}});$("#price_min").val(500);$("#price_max").val(50000)</script>
+</body>
+</html>

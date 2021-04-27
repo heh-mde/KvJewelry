@@ -1,0 +1,145 @@
+.product{
+	position: relative;
+	display: inline-block;
+	border-right: 1px solid #ead9c5;
+	width: 20%;
+	padding: 0px 10px;
+	margin-bottom: 5px;
+	height: 305px;
+	text-decoration: none;
+}
+
+.product_image{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	padding: 10px 0px; 
+	width: 200px;
+}
+
+.product_name{
+	position: absolute;
+	height: 50px;
+	width: 90%;
+	right: 10px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	color: #4a4444;
+	display: table-cell;
+  	vertical-align: bottom;
+}
+
+.product_price{
+	line-height: 40px;
+	height: 40px;
+	text-align: center;
+	font-size: 18px;
+	font-family: "Montserrat",sans-serif;
+	font-weight: 500;
+}
+
+.product_stock{
+	position: absolute;
+	font-size: 18px;
+	bottom: 75px;
+	left: 85px;
+	padding-left: 20px;
+	color: green;
+	font-family: "Montserrat", sans-serif;
+	line-height: 50px;
+}
+
+.product_info_block{
+	display: none;
+	position: absolute;
+	bottom: -5px;
+	left: 0px;
+	height: 70px;
+	width: 100%;
+	padding: 0px 10px;
+	background-color: #f7eaaa;
+	border-top: 2px solid black;
+	border-radius: 5px;
+	padding: 8px;
+	cursor: default;
+}
+
+.product_info{
+	font-size: 14px;
+	color: #4e3704;
+	margin: 0;
+	text-align: center;
+}
+
+.product_body{
+	position: absolute;
+	width: 90%;
+	height: 310px;
+	border-bottom: 1px solid #ead9c5;
+}
+
+.product_availability:before{
+	cursor: help;
+	position: absolute;
+	bottom: 3px;
+	right: 5px;
+	content: "\f058";
+	font-family: FontAwesome;
+	font-size: 17px;
+	color: green;
+	z-index: 999;
+}
+
+.product_basket{
+	display: none;
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	width: 23px;
+	height: 23px;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.product_basket:before{
+	position: absolute;
+	content: "\f290";
+	font-family: FontAwesome;
+	z-index: 999;
+	font-size: 16px;
+	bottom: 0px;
+	left: 0px;
+	color: black;
+}
+
+.product_basket:after{
+	position: absolute;
+	content: "\f067";
+	font-family: FontAwesome;
+	z-index: 999;
+	font-size: 8px;
+	top: 20px;
+	left: 20px;
+	color: #2424b9;
+}
+
+@media all and (min-width: 1200px){
+	.product:hover .product_body{
+		bottom: 105px;
+		height: 250px;
+		border: none;
+	}
+
+	.product:hover .product_info_block{
+		display: block;
+	}
+
+	.product:hover .product_stock{
+		bottom: 15px;
+	}
+
+	.product:hover .product_basket{
+		display: block;
+	}
+}

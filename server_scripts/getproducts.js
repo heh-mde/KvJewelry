@@ -1,10 +1,12 @@
 /**
- *Get 5 newest products from DB
+ *Get some amount of products from DB
  *
  *@param {String} product - Type of product to get
+ *@param {Integer} limit - Limit of products to get
  *@return {Array} List of products
  */
-async function getNew(product="Rings"){
+
+async function getSome(product="rings", limit){
 	const sql = require("mysql2"); 
 
 	const sqlconnection = sql.createConnection({
@@ -14,21 +16,32 @@ async function getNew(product="Rings"){
 		password: "aq03092001"
 	}).promise();
 
-	/*sqlconnection.connect(function(err){
-		if (err) {
-		  return console.error("Ошибка: " + err.message);
-		}
-		else{
-		  console.log("kvjew DB connected "+ product);
-		}
-	 });*/
-
-	const a = await sqlconnection.query(`SELECT * FROM ${product} ORDER BY newid DESC LIMIT 5`)
+	const a = await sqlconnection.query(`SELECT * FROM ${product} ORDER BY newid DESC LIMIT ${limit}`)
 	.then(result => {
 		data = result[0];
 	});
 
+	sqlconnection.end();
 	return data;
 }
 
-module.exports = {getNew};
+async function getOne(product="rings", vendorcode){
+	const sql = require("mysql2"); 
+
+	const sqlconnection = sql.createConnection({
+		host: "81.90.180.144",
+		user: "hehmdetk_hehmde",
+		database: "hehmdetk_kvjew",
+		password: "aq03092001"
+	}).promise();
+
+	await sqlconnection.query(`SELECT * FROM ${product} WHERE vendorcode = ${vendorcode}`)
+	.then(result => {
+		data = result[0];
+	});
+
+	sqlconnection.end();
+	return data;
+}
+
+module.exports = {getOne, getSome};

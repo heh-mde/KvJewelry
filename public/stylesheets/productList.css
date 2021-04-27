@@ -1,0 +1,169 @@
+.product_block{
+	position: relative;
+	width: 75%;
+	margin: auto;
+	margin-top: 3px;
+}
+
+.filters_block{
+	display: flex;
+	width: 75%;
+	height: 180px;
+	margin: auto;
+	padding: 30px;
+}
+
+.filter{
+	height: 45px;
+	width: 100%;
+	border: 1px solid black;
+	border-radius: 5px;
+	margin: 0 20px;
+	padding: 5px;
+	font-size: 25px;
+	background-color: #ffe3c4;
+}
+
+#sort_filter{
+}
+
+#price_filter{
+	width: 100%;
+	border: none;
+	background: none;
+	text-align: left;
+	font-size: 1.7vw;
+}
+
+#price_slider{
+	display: inline-block;
+	width: 140%;
+	padding-top: 5px;
+	margin-top: 15px;
+}
+
+.price_form{
+	width: 25%;
+	font-size: 17px;
+}
+
+.ui-slider .ui-slider-handle{
+	height: 25px;
+	width: 25px;
+	border-radius: 18px;
+	outline: none;
+	top: -7px;
+}
+
+
+
+#metal_filter{
+}
+
+@media all and (max-width: 1200px){
+	.header{
+		width: 900px;
+	}
+	
+	.down-header{
+	    border-spacing: 45px 0px;
+	}
+	
+	.menu_link{
+	    font-size: 22px;
+	}
+
+	.product_block{
+		width: 100%;
+	}
+
+	.product{
+		width: 33%;
+		height: 400px;
+	}
+
+	.product_body{
+		height: 405px;
+	}
+
+	.product:hover .product_info_block{
+		display: none;
+	}
+
+	.product_price{
+		height: 50px;
+		line-height: 50px;
+		font-size: 25px;
+	}
+
+	.product_stock{
+		padding-left: 45px;
+		font-size: 25px;
+		line-height: 70px;
+	}
+
+	.product_image{
+		width: 300px;
+	}
+
+	.product_name{
+		height: 80px;
+		font-size: 20px;
+	}
+
+	.filters_block{
+		width: 100%;
+		height: 250px;
+		display: block;
+	}
+
+	.filter{
+		display: inline-block;
+		width: 45%;
+		height: 70px;
+		margin-bottom: 50px;
+	}
+
+	#price_filter{
+		display: inline-block;
+		width: 45%;
+		font-size: 35px;
+	}
+
+	.price_form{
+		width: 30%;
+		font-size: 27px;
+		border: 1px solid black;
+	}
+
+	#price_slider{
+		display: inline-block;
+		width: 45%;
+		height: 20px;
+	}
+
+	.ui-slider .ui-slider-handle{
+		height: 40px;
+		width: 40px;
+		top: -10px;
+	}
+}
+
+
+@media all and (min-width: 1200px){
+	.product{
+		width: 25%;
+	}
+}
+
+@media all and (min-width: 1420px){
+	.product{
+		width: 20%;
+	}
+}
+
+@media all and (min-width: 1920px){
+	.product{
+		width: 16%;
+	}
+}

@@ -22,6 +22,7 @@
 	height: 140px;
 	background: url(../images/logo.png) no-repeat;
 	background-size: cover;
+	background-color: white;
 	background-position: 100% 30%;
 }
 
@@ -47,7 +48,7 @@
     height: 52px;
     padding-left: 15px;
     border-radius: 42px;
-    border: 0.05px solid #324b4e;
+    border: none;
     border-bottom: 1.5px solid #324b4e;
     background: #ffedc3;
     outline: none;
@@ -107,12 +108,13 @@
 }
 
 .down-header{
-	height: 50px;
+	height: 70px;
 	margin: auto;
 	padding-top: 20px;
 	width: 84%;
 	border-spacing: 90px 0px;
 	border-top: 3px solid;
+	background-color: white;
 }
 
 .menu_button{
@@ -160,7 +162,7 @@
 .menu_selection {
 	display: none;
 	position: absolute;
-	top:26px;
+	top:25px;
 	margin: auto;
 	width: 175px;
 	height: 100px;
