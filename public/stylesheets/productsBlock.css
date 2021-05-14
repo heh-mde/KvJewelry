@@ -27,6 +27,7 @@
 	color: #4a4444;
 	display: table-cell;
   	vertical-align: bottom;
+  	z-index: 999;
 }
 
 .product_price{
@@ -50,7 +51,8 @@
 }
 
 .product_info_block{
-	display: none;
+	display: block;
+	opacity: 0;
 	position: absolute;
 	bottom: -5px;
 	left: 0px;
@@ -126,17 +128,17 @@
 
 @media all and (min-width: 1200px){
 	.product:hover .product_body{
-		bottom: 105px;
-		height: 250px;
 		border: none;
+		transform: translate(0,-45px);
+		transition: all 0.2s ease-in;
+		background: white;
+		z-index: 1;
 	}
 
 	.product:hover .product_info_block{
-		display: block;
-	}
-
-	.product:hover .product_stock{
-		bottom: 15px;
+		opacity: 1;
+		transition: all 0.4s linear;
+		z-index: 2;
 	}
 
 	.product:hover .product_basket{

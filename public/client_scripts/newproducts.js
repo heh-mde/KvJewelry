@@ -1,7 +1,7 @@
 function getNew(product="rings"){
 	$.get('/getNew', {productType: product}, function(products){
 		for (var i = 0; i <= 4; i++) {
-			$('.new_list').append(`<div class="product">
+			$('.new_list').append(`<div class="product" id=${products[i].vendorcode}_product>
 				<a href="/products/${product}/${products[i].vendorcode}" class="product_link">
 				<div class="product_availability"></div>
 				<div class="product_info_block">
@@ -27,6 +27,8 @@ function getNew(product="rings"){
 					'text-decoration': 'line-through blue',
 				});
 			}
+
+			$(`#${products[i].vendorcode}_product`).hover(function() {$(".product_body").css({'background':'none'})},function() {});
 		}
 	});
 }
