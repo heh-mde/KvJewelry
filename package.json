@@ -7,7 +7,7 @@
 	"dependencies": {
 		"express": "~4.16.1",
 		"mysql2": "^2.1.0",
-		"nodemon": "^2.0.4",
+		"nodemon": "^2.0.6",
 		"pug": "^3.0.0"
 	}
 }

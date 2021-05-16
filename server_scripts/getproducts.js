@@ -10,9 +10,9 @@ async function getSome(product="rings", limit){
 	const sql = require("mysql2"); 
 
 	const sqlconnection = sql.createConnection({
-		host: "81.90.180.144",
-		user: "hehmdetk_hehmde",
-		database: "hehmdetk_kvjew",
+		host: "localhost",
+		user: "root",
+		database: "kvjew",
 		password: "aq03092001"
 	}).promise();
 
