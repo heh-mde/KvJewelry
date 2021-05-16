@@ -6,42 +6,53 @@
  *@return {Array} List of products
  */
 
-async function getSome(product="rings", limit){
-	const sql = require("mysql2"); 
+async function getSome(product = "rings", limit) {
+    const sql = require("mysql2");
+    const sqlconnection = sql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "kvjew",
+        password: "Kolya1712200"
+    }).promise();
 
-	const sqlconnection = sql.createConnection({
-		host: "localhost",
-		user: "root",
-		database: "kvjew",
-		password: "aq03092001"
-	}).promise();
+    let data;
+    const a = await sqlconnection.query(`SELECT * FROM ${product} ORDER BY newid DESC LIMIT ${limit}`)
+        .then(result => {
+            data = result[0];
+        }).catch(function (err) {
+            console.log(err);
+        });
 
-	const a = await sqlconnection.query(`SELECT * FROM ${product} ORDER BY newid DESC LIMIT ${limit}`)
-	.then(result => {
-		data = result[0];
-	});
+    sqlconnection.end().catch(function (err) {
+        console.log(err)
+    });
 
-	sqlconnection.end();
-	return data;
+    return data;
 }
 
-async function getOne(product="rings", vendorcode){
-	const sql = require("mysql2"); 
+async function getOne(product = "rings", vendorcode) {
+    const sql = require("mysql2");
 
-	const sqlconnection = sql.createConnection({
-		host: "81.90.180.144",
-		user: "hehmdetk_hehmde",
-		database: "hehmdetk_kvjew",
-		password: "aq03092001"
-	}).promise();
+    const sqlconnection = sql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "kvjew",
+        password: "Kolya1712200"
+    }).promise();
 
-	await sqlconnection.query(`SELECT * FROM ${product} WHERE vendorcode = ${vendorcode}`)
-	.then(result => {
-		data = result[0];
-	});
+    let data;
+    const a = await sqlconnection.query(`SELECT * FROM ${product} WHERE vendorcode = ${vendorcode}`)
+        .then(result => {
+            data = result[0];
+        }).catch(function (err) {
+            console.log(err)
+        });
 
-	sqlconnection.end();
-	return data;
+    sqlconnection.end().catch(function (err) {
+        console.log(err)
+    });
+    return data;
+
 }
 
 module.exports = {getOne, getSome};
