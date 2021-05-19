@@ -8,11 +8,14 @@
 
 async function getSome(product = "rings", limit) {
     const sql = require("mysql2");
+    const fs = require('fs');
+    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
+
     const sqlconnection = sql.createConnection({
         host: "localhost",
         user: "root",
         database: "kvjew",
-        password: "Kolya1712200"
+        password: db_password
     }).promise();
 
     let data;
@@ -32,12 +35,14 @@ async function getSome(product = "rings", limit) {
 
 async function getOne(product = "rings", vendorcode) {
     const sql = require("mysql2");
+    const fs = require('fs');
+    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
         host: "localhost",
         user: "root",
         database: "kvjew",
-        password: "Kolya1712200"
+        password: db_password
     }).promise();
 
     let data;

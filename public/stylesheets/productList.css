@@ -8,7 +8,6 @@
 .filters_block {
     display: flex;
     width: 75%;
-    height: 180px;
     margin: auto;
     padding: 30px;
 }
@@ -159,7 +158,6 @@
 
     .filters_block {
         width: 100%;
-        height: 250px;
         display: block;
     }
 
@@ -193,6 +191,42 @@
         width: 40px;
         top: -10px;
     }
+}
+
+.pagination_block{
+	display: table;
+	list-style-type: none;
+	margin: 0 auto;
+	padding: 50px;
+	overflow: hidden;
+}
+
+.pagination_item{
+	float: left;
+}
+
+.pagination_item a{
+	display: block;
+	text-align: center;
+	padding: 13px 15px;
+	font-size: 20px;
+	text-decoration: none;
+}
+
+.pagination_item:hover{
+	background-color: #f7eaaa;
+}
+
+#on_hover{
+	background-color: #f6e172;
+}
+
+#no_hover{
+	color: #8f8e8c;
+}
+
+#no_hover:hover{
+	background-color: #ffffff;
 }
 
 

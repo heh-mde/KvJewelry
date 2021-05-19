@@ -1,42 +1,55 @@
 function getAll(product = "rings", limit = 1000) {
-    $.get('/getAll', {limit: limit}, function (products) {
-        sessionStorage.setItem('products', JSON.stringify(products));
-    }).done(function () {
-        sessionStorage.setItem('page', "1");
-        show();
-    });
+    let page = getParam("page");
+    let nopageparams = getWithoutParam("page");
+    //window.history.pushState("object or string", "Title", `/products/${product}?page=1&sort=0&metall=0&price=500-50000`);
+    if (sessionStorage.getItem("products") == null || page == 1){
+        $.get('/getAll', {limit: limit}, function (products) {
+            sessionStorage.setItem("products", JSON.stringify(products));
+        }).done(function () {
+            show(page);
+            showPaginator(page);
+        });
+    }
+    else{
+        show(page);
+        showPaginator(page);
+    }
 }
 
-function show() {
-    let products = JSON.parse(sessionStorage.getItem('products'))
+function show(page) {
+    let products = JSON.parse(sessionStorage.getItem("products"))
     products = sortProducts(products);
-    let page = Number(sessionStorage.getItem('page'))
-    let prodOnPage;
     if ($(window).width() >= '1920') {
-        prodOnPage = 60;
+        sessionStorage.setItem("prodOnPage", 60);
     } else if ($(window).width() >= '1420') {
-        prodOnPage = 50;
+        sessionStorage.setItem("prodOnPage", 50);
     } else if ($(window).width() >= '1200') {
-        prodOnPage = 32;
+        sessionStorage.setItem("prodOnPage", 32);
     } else {
-        prodOnPage = 21;
+        sessionStorage.setItem("prodOnPage", 21);
     }
-    for (let i = (page - 1) * prodOnPage; i <= page * prodOnPage - 1; i++) {
+    const prodOnPage = sessionStorage.getItem("prodOnPage");
+    let iter_end = page * prodOnPage;
+    if (page == Math.ceil(products.length/prodOnPage)){
+        iter_end = products.length;
+    }
+    $('.product_block').empty();
+    for (let i = (page - 1) * prodOnPage; i < iter_end; i++) {
         $('.product_block').append(`<div class="product">
-			<a href="/products/rings/${products[i].vendorcode}" class="product_link">
-			<div class="product_availability"></div>
-			<div class="product_info_block">
- 				<p class="product_info">Артикул:  ${products[i].vendorcode}</p>
-				<p class="product_info">Вес:  ${products[i].weight}</p>
-				<p class="product_info">Метал:  ${products[i].metal}</p>
-			</div>
-			<div class="product_body">
-				<img class="product_image" src="/images/product_photo/${products[i].image}" alt="">
-				<div class="product_price" id=${products[i].vendorcode}_price>${products[i].price} грн</div>
-				<div class="product_name">${products[i].name}</div>
-			</div></a>
-			<button onclick="" class="product_basket"></button>
-			</div>`);
+            <a href="/products/rings/${products[i].vendorcode}" class="product_link">
+            <div class="product_availability"></div>
+            <div class="product_info_block">
+                <p class="product_info">Артикул:  ${products[i].vendorcode}</p>
+                <p class="product_info">Вес:  ${products[i].weight}</p>
+                <p class="product_info">Метал:  ${products[i].metal}</p>
+            </div>
+            <div class="product_body">
+                <img class="product_image" src="/images/product_photo/${products[i].image}" alt="">
+                <div class="product_price" id=${products[i].vendorcode}_price>${products[i].price} грн</div>
+                <div class="product_name">${products[i].name}</div>
+            </div></a>
+            <button onclick="" class="product_basket"></button>
+            </div>`);
 
         if (products[i].stock != null) {
             $(`#${products[i].vendorcode}_price`)
@@ -59,9 +72,8 @@ function show() {
 
 function sortProducts(products) {
     if (sessionStorage.getItem('sort') === null) {
-        sessionStorage.setItem('sort', "0")
+        sessionStorage.setItem('sort', "0");
     }
-    $('.product_block').empty();
     switch (Number(sessionStorage.getItem('sort'))) {
         case 0:
             break;
@@ -77,12 +89,36 @@ function sortProducts(products) {
             break;
         case 3:
             products.sort(function (a, b) {
-                return b.price - a.price;
+                if (a.stock != null){
+                    a = a.stock;
+                }
+                else{
+                    a = a.price;
+                }
+                if (b.stock != null){
+                    b = b.stock;
+                }
+                else{
+                    b = b.price;
+                }     
+                return b - a;
             });
             break;
         case 4:
             products.sort(function (a, b) {
-                return a.price - b.price;
+                if (a.stock != null){
+                    a = a.stock;
+                }
+                else{
+                    a = a.price;
+                }
+                if (b.stock != null){
+                    b = b.stock;
+                }
+                else{
+                    b = b.price;
+                }     
+                return a - b;
             });
             break;
         default:

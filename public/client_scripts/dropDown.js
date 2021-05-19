@@ -12,5 +12,5 @@ function displayDropdown(num) {
 
 function changeSort(num) {
     sessionStorage.setItem('sort', num);
-    show();
+    show(getParam("page"));
 }
