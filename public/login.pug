@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/stylesheets/login.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://cdn.rawgit.com/h2non/jsHashes/master/hashes.js"></script>
+        <script type="text/javascript" src="/client_scripts/loginPage.js"></script>
+        include header.html
+    </head>
+    <body>
+        <div class="content_container">
+            <div class="login_form_container">
+                <form action="/login" method="post" class="login_form">
+                    <label for="uname" class="uname_label"><b>Имя пользователя</b></label>
+                    <input type="text" placeholder="Введите имя пользователя" name="uname" required>
+                    <label for="psw" class="psw_label"><b>Пароль</b></label>
+                    <input type="password" placeholder="Введите пароль" name="psw" required>
+                    <button type="submit">Войти</button>
+                    <div class="switch_form">Ещё нет аккаунта? <div class="register">Создать!</div></div>
+                </form>
+            </div>
+            <div class="register_form_container non-active">
+                    <form action="/register" method="post" class="register_form">
+                    <label for="uname" class="uname_label"><b>Имя пользователя</b></label>
+                    <input type="text" placeholder="Введите имя пользователя" name="uname" required>
+                    <label for="email" class="email_label"><b>Почта</b></label>
+                    <input type="text" placeholder="Введите почту" name="email" required>
+                    <label for="psw" class="psw_label"><b>Пароль</b></label>
+                    <input type="password" placeholder="Введите пароль" name="psw" required>
+                    <label for="name" class="name_label"><b>Имя</b></label>
+                    <input type="text" placeholder="Введите ваше имя" name="name" required>
+                    <label for="surname" class="surname_label"><b>Фамилия</b></label>
+                    <input type="text" placeholder="Введите вашу фамилию" name="surname" required>
+                    <button type="submit">Зарегистрироватся</button>
+                    <div class="switch_form">Уже есть аккаунт? <div class="login">Войти!</div></div>
+                    </form>
+            </div>
+        </div>
+    </body>
+</html>

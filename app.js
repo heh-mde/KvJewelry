@@ -2,12 +2,35 @@ const express = require("express");
 const pug = require('pug');
 const app = express();
 const getProducts = require("./server_scripts/getProducts.js");
+const getUser = require("./server_scripts/getuser.js");
+const bodyParser = require("body-parser");
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const redisStorage = require('connect-redis')(session);
+const redis = require('redis');
+const client = redis.createClient();
 const products = express.Router();
 let productName;
 let productId;
+let serverSalt;
 
 app.use(express.static(__dirname + "/public"));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
+app.use(
+    session({
+        store: new redisStorage({
+            host: "localhost",
+            port: 6379,
+            client: client,
+            ttl: 260
+        }),
+        secret: 'Something secret idk irh134vmqcr241*(%#7846819 )8RCP9m2q329$& Q@V($&q29$&VQ@(EM XMc39',
+        resave: true,
+        saveUninitialized: true
+    })
+)
 
 app.get("/", function (req, res) {
     res.send(pug.renderFile(__dirname + '/public/home.pug'));
@@ -17,6 +40,60 @@ app.get("/constructor", function (req, res) {
     res.send("Ya pojiloy constructor");
 });
 
+app.get("/login", function (req, res) {
+    res.send(pug.renderFile(__dirname + '/public/login.pug'));
+});
+
+app.post("/login", async function (req, res) {
+    if (!req.body) return res.sendStatus(400);
+    if (req.body.getRandNum) {
+        serverSalt = await bcrypt.genSalt(5);
+        res.json({serverSalt});
+    }
+    if (req.body.tryLogin) {
+        let usrPass = await getUser.getUserPass(req.body.uname);
+        if (usrPass.length) {
+            let hash = usrPass[0]['HEX(PasswordHash)'];
+            if (hash.toLowerCase() + serverSalt + req.body.clientSalt === req.body.sha) {
+                req.session.user = req.body.uname;
+                return res.json({isSuccessful: true});
+            } else {
+                res.json({isSuccessful: false});
+            }
+        } else {
+            res.json({isSuccessful: false});
+        }
+    }
+})
+
+app.post("/register", async function (req, res) {
+    if (!req.body) return res.sendStatus(400);
+    let usrName = await getUser.getUserByLogin(req.body.uname);
+    let usrMail = await getUser.getUserByEmail(req.body.email);
+    if (usrName.length) {
+        if (usrMail.length) {
+            res.json({login_exists: true, mail_exists: true, created: false});
+            return
+        }
+        res.json({login_exists: true, mail_exists: false, created: false});
+        return
+    }
+    if (usrMail.length) {
+        res.json({login_exists: false, mail_exists: true, created: false});
+    } else {
+        let r = await getUser.addUser(req.body.uname, req.body.email, req.body.pass, req.body.name, req.body.surname);
+        res.json({created: true});
+    }
+})
+
+app.get('/logout', function (req, res) {
+    req.session.destroy(function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        res.redirect('/');
+    });
+})
 
 app.use("/products", products);
 
@@ -45,6 +122,7 @@ app.get("/getOne", async function (req, res) {
     let oneProducts = await getProducts.getOne(productType, req.query.vendorcode);
     res.send(oneProducts);
 });
+
 
 app.listen(process.env.PORT || 63000);
 
