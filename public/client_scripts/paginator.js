@@ -1,27 +1,34 @@
-function showPaginator(page=1,params="?") {
+function showPaginator(page, prod_num) {
+	$('.pagination_item').remove();
+	const params = getWithoutParam("page");
 	if (page == 1){
-		$('.pagination_block').append('<li class ="pagination_item" id="no_hover"><a>&laquo;</a></li>');
+		$('.pagination_block').append('<li class ="pagination_item" id="no_hover"><button>&laquo;</button></li>');
 	}
 	else{
-		$('.pagination_block').append(`<li class ="pagination_item"><a href="/products/rings${params}&page=${page-1}">&laquo;</a></li>`);
+		$('.pagination_block').append(`<li class ="pagination_item"><button onclick="getPage(${page-1})">&laquo;</button></li>`);
 	}
 
-	let pagenum = Math.ceil(JSON.parse(sessionStorage.getItem("products")).length/sessionStorage.getItem("prodOnPage"))
+	product = getProductName();
+	let pagenum = Math.ceil(prod_num/sessionStorage.getItem("prodOnPage"))
 	for (let i =0; i<pagenum; i++){
 		if (i == page-1){
-			$('.pagination_block').append(`<li class ="pagination_item" id="on_hover"><a href="/products/rings${params}&page=${i+1}">${i+1}</a></li>`);
+			$('.pagination_block').append(`<li class ="pagination_item" id="on_hover"><button onclick="getPage(${i+1})">${i+1}</button></li>`);
 		}
 		else{
-			$('.pagination_block').append(`<li class ="pagination_item"><a href="/products/rings${params}&page=${i+1}">${i+1}</a></li>`);
+			$('.pagination_block').append(`<li class ="pagination_item"><button onclick="getPage(${i+1})">${i+1}</button></li>`);
 		}
 	}
 
 	if (page == pagenum){ 
-		$('.pagination_block').append('<li class ="pagination_item" id="no_hover"><a>&raquo;</a></li>');
+		$('.pagination_block').append('<li class ="pagination_item" id="no_hover"><button>&raquo;</button></li>');
 	}
 	else{
-		$('.pagination_block').append(`<li class ="pagination_item"><a href="/products/rings${params}&page=${page+1}">&raquo;</a></li>`);
+		$('.pagination_block').append(`<li class ="pagination_item"><button onclick="getPage(${page+1})">&raquo;</button></li>`);
 	}
+}
 
-	$('body').append($('.pagination_block').first().clone());
+function getPage(num) {
+	const params = getWithoutParam("page");
+	window.history.pushState("object or string", "Title", `/products/rings${params}page=${num}`);
+	$('body,html').animate({scrollTop: 220}, 400); 
 }

@@ -3,6 +3,14 @@
     font-family: 'EB Garamond', serif;
 }
 
+a {
+    color: #000000;
+}
+
+button:focus {
+    outline: none;
+}
+
 .header {
     margin: auto;
     width: 1100px;

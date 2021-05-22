@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/ui-lightness/jquery-ui.css">
 	<script type="text/javascript" src="/client_scripts/allProducts.js"></script>
 	<script type="text/javascript" src="/client_scripts/paginator.js"></script>
-	<script type="text/javascript" src="/client_scripts/dropDown.js"></script>
+	<script type="text/javascript" src="/client_scripts/filters.js"></script>
 	<script type="text/javascript" src="/client_scripts/url.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 	include header.html
@@ -22,11 +22,11 @@
 				<i id="filter_icon1" class="fa-angle-double-down"></i>
 			</button>
 			<div id="dropDown1" class="hideDrop">
-				<button class="filter_block" onclick="changeSort(4)">Цена (по возрастанию)</button>
-				<button class="filter_block" onclick="changeSort(3)">Цена (по убыванию)</button>
-				<button class="filter_block" onclick="changeSort(2)">Есть в наличии</button>
-				<button class="filter_block" onclick="changeSort(1)">Акция</button>
-				<button class="filter_block" onclick="changeSort(0)">По новизне</button>
+				<button class="filter_block" id = "sort_4" onclick="changeSort(4)">Цена (по возрастанию)</button>
+				<button class="filter_block" id = "sort_3" onclick="changeSort(3)">Цена (по убыванию)</button>
+				<button class="filter_block" id = "sort_2" onclick="changeSort(2)">Есть в наличии</button>
+				<button class="filter_block" id = "sort_1" onclick="changeSort(1)">Акция</button>
+				<button class="filter_block" id = "sort_0" onclick="changeSort(0)">По новизне</button>
 			</div>
 		</div>
 		<div class="filter" id="metal_filter">
@@ -36,27 +36,27 @@
 			</button>
 			<div id="dropDown2" class="hideDrop">
 				<div class="filter_block">
-				<div class="checkbox_block">
-					<input type="checkbox" class="filter_checkbox" id="gold" name="gold">
-					<div for="gold" class="filter_block_text">Белое золото</div>
+				<div class="checkbox_block" id="checkbox_1">
+					<input type="checkbox" class="filter_checkbox" id="wh_gold" name="wh_gold" onclick="changeFilter(id, 'metal')">
+					<div for="wh_gold" class="filter_block_text">Белое золото</div>
 				</div>
 				</div>
 				<div class="filter_block">
-				<div class="checkbox_block">
-					<input type="checkbox" class="filter_checkbox" id="gold" name="gold">
-					<div for="gold" class="filter_block_text">Желтое золото</div>
+				<div class="checkbox_block" id="checkbox_2">
+					<input type="checkbox" class="filter_checkbox" id="yl_gold" name="yl_gold" onclick="changeFilter(id, 'metal')">
+					<div for="yl_gold" class="filter_block_text">Желтое золото</div>
 				</div>
 				</div>
 				<div class="filter_block">
-				<div class="checkbox_block">
-					<input type="checkbox" class="filter_checkbox" id="gold" name="gold">
-					<div for="gold" class="filter_block_text">Платина</div>
+				<div class="checkbox_block" id="checkbox_3">
+					<input type="checkbox" class="filter_checkbox" id="platin" name="platin" onclick="changeFilter(id, 'metal')">
+					<div for="platinum" class="filter_block_text">Платина</div>
 				</div>
 				</div>
 				<div class="filter_block">
-				<div class="checkbox_block">
-					<input type="checkbox" class="filter_checkbox" id="gold" name="gold">
-					<div for="gold" class="filter_block_text">Серебро</div>
+				<div class="checkbox_block" id="checkbox_4">
+					<input type="checkbox" class="filter_checkbox" id="silver" name="silver" onclick="changeFilter(id, 'metal')">
+					<div for="silver" class="filter_block_text">Серебро</div>
 				</div>
 				</div>
 			</div>
@@ -69,7 +69,9 @@
 	</div>
 	<ul class="pagination_block"></ul>
 	<div class="product_block"></div>
+	<ul class="pagination_block"></ul>
 	<script type="text/javascript">getAll()</script>
-	<script type="text/javascript">$("#price_slider").slider({range:true,min:500,max:50000,values: [500, 50000],slide:function(event,ui){$("#price_min").val(ui.values[0]);$("#price_max").val(ui.values[1])}});$("#price_min").val(500);$("#price_max").val(50000)</script>
+	<script type="text/javascript">checkFilter("metal")</script>
+	<script type="text/javascript">sessionStorage.setItem("params", window.location.search);setInterval(checkURL, 100)</script>
 </body>
 </html>
