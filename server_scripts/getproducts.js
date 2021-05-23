@@ -22,6 +22,9 @@ async function getSome(product = "rings", limit) {
     const a = await sqlconnection.query(`SELECT * FROM ${product} ORDER BY newid DESC LIMIT ${limit}`)
         .then(result => {
             data = result[0];
+            for (const item in data) {
+                data[item].type = product;
+            }
         }).catch(function (err) {
             console.log(err);
         });
@@ -49,6 +52,7 @@ async function getOne(product = "rings", vendorcode) {
     const a = await sqlconnection.query(`SELECT * FROM ${product} WHERE vendorcode = ${vendorcode}`)
         .then(result => {
             data = result[0];
+            data.type = product;
         }).catch(function (err) {
             console.log(err)
         });

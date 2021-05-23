@@ -62,7 +62,7 @@ function show(page) {
 
     $('.product_block').empty();
     for (let i = (page - 1) * prodOnPage; i < iter_end; i++) {
-        $('.product_block').append(`<div class="product">
+        $('.product_block').append(`<div class="product" id="${products[i].vendorcode}">
             <a href="/products/rings/${products[i].vendorcode}" class="product_link">
             <div class="product_availability"></div>
             <div class="product_info_block">
@@ -75,7 +75,7 @@ function show(page) {
                 <div class="product_price" id=${products[i].vendorcode}_price>${products[i].price} грн</div>
                 <div class="product_name">${products[i].name}</div>
             </div></a>
-            <button onclick="" class="product_basket"></button>
+            <button onclick="" id="${products[i].type}_${products[i].vendorcode}" class="product_basket"></button>
             </div>`);
 
         if (products[i].stock != null) {
@@ -95,6 +95,7 @@ function show(page) {
             }
         }
     }
+    $('.product_basket').on('click', addToCart);
     showPaginator(page, products.length);
     getPriceSlider(product);
 }

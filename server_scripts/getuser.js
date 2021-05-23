@@ -52,7 +52,7 @@ async function getUserByEmail(email) {
     return data;
 }
 
-async function getUserPass(user) {
+async function getUserById(userId) {
     const sql = require("mysql2");
     const fs = require('fs');
     let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
@@ -65,7 +65,34 @@ async function getUserPass(user) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT HEX(PasswordHash) FROM user WHERE Login = "${user}"`)
+    const a = await sqlconnection.query(`SELECT Email FROM user WHERE UserID = "${userId}"`)
+        .then(result => {
+            data = result[0];
+        }).catch(function (err) {
+            console.log(err);
+        });
+
+    sqlconnection.end().catch(function (err) {
+        console.log(err)
+    });
+
+    return data;
+}
+
+async function getUserPassAndId(user) {
+    const sql = require("mysql2");
+    const fs = require('fs');
+    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
+
+    const sqlconnection = sql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "userdb",
+        password: db_password
+    }).promise();
+
+    let data;
+    const a = await sqlconnection.query(`SELECT HEX(PasswordHash), UserID FROM user WHERE Login = "${user}"`)
         .then(result => {
             data = result[0];
         }).catch(function (err) {
@@ -106,4 +133,4 @@ async function addUser(login, email, pass, name, surname) {
     return data;
 }
 
-module.exports = {getUserByLogin, getUserByEmail, getUserPass, addUser};
+module.exports = {getUserByLogin, getUserByEmail, getUserById, getUserPassAndId, addUser};

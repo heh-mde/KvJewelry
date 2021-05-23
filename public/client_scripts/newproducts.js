@@ -1,7 +1,7 @@
 function getNew(product = "rings") {
     $.get('/getNew', {productType: product}, function (products) {
         for (var i = 0; i <= 4; i++) {
-            $('.new_list').append(`<div class="product" id=${products[i].vendorcode}_product>
+            $('.new_list').append(`<div class="product" id=${products[i].vendorcode}>
 				<a href="/products/${product}/${products[i].vendorcode}" class="product_link">
 				<div class="product_availability"></div>
 				<div class="product_info_block">
@@ -14,7 +14,7 @@ function getNew(product = "rings") {
 					<div class="product_price" id=${products[i].vendorcode}_price>${products[i].price} грн</div>
 					<div class="product_name">${products[i].name}</div>
 				</div></a>
-				<button onclick="" class="product_basket"></button>
+				    <button onclick="" id="${product}_${products[i].vendorcode}" class="product_basket"></button>
 				</div>`);
 
             if (products[i].stock != null) {
@@ -33,5 +33,6 @@ function getNew(product = "rings") {
             }, function () {
             });
         }
+        $('.product_basket').on('click', addToCart);
     });
 }

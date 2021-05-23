@@ -4,9 +4,14 @@
 	<link rel="stylesheet" href="/stylesheets/product.css">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/client_scripts/oneProduct.js"></script>
-	include header.html
+	<script type="text/javascript" src="/client_scripts/cart.js"></script>
+	<link rel="stylesheet" href="/stylesheets/modal_cart.css">
+	<script type="text/javascript" src="/client_scripts/addToCart.js"></script>
+	include header_imports.html
 </head>
 <body>
+	include modal_cart.html
+	include header.html
 	<div class="product_container"></div>
 	<script type="text/javascript">loadProduct()</script>
 </body>

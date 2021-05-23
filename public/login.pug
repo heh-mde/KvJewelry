@@ -5,9 +5,13 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://cdn.rawgit.com/h2non/jsHashes/master/hashes.js"></script>
         <script type="text/javascript" src="/client_scripts/loginPage.js"></script>
-        include header.html
+        <script type="text/javascript" src="/client_scripts/cart.js"></script>
+        <link rel="stylesheet" href="/stylesheets/modal_cart.css">
+        include header_imports.html
     </head>
     <body>
+        include modal_cart.html
+        include header.html
         <div class="content_container">
             <div class="login_form_container">
                 <form action="/login" method="post" class="login_form">

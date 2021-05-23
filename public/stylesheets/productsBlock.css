@@ -14,7 +14,7 @@
     margin-left: auto;
     margin-right: auto;
     padding: 10px 0px;
-    width: 200px;
+    width: 100%;
 }
 
 .product_name {
@@ -27,7 +27,7 @@
     color: #4a4444;
     display: table-cell;
     vertical-align: bottom;
-    z-index: 999;
+    z-index: 1;
 }
 
 .product_price {
@@ -89,7 +89,7 @@
     font-family: FontAwesome;
     font-size: 17px;
     color: green;
-    z-index: 999;
+    z-index: 3;
 }
 
 .product_basket {
@@ -108,7 +108,7 @@
     position: absolute;
     content: "\f290";
     font-family: FontAwesome;
-    z-index: 999;
+    z-index: 2;
     font-size: 16px;
     bottom: 0px;
     left: 0px;
@@ -119,7 +119,7 @@
     position: absolute;
     content: "\f067";
     font-family: FontAwesome;
-    z-index: 999;
+    z-index: 2;
     font-size: 8px;
     top: 20px;
     left: 20px;

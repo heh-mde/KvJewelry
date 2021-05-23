@@ -3,6 +3,7 @@ const pug = require('pug');
 const app = express();
 const getProducts = require("./server_scripts/getProducts.js");
 const getUser = require("./server_scripts/getuser.js");
+const makeOrder = require("./server_scripts/makeOrder.js");
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
@@ -51,11 +52,12 @@ app.post("/login", async function (req, res) {
         res.json({serverSalt});
     }
     if (req.body.tryLogin) {
-        let usrPass = await getUser.getUserPass(req.body.uname);
+        let usrPass = await getUser.getUserPassAndId(req.body.uname);
         if (usrPass.length) {
             let hash = usrPass[0]['HEX(PasswordHash)'];
             if (hash.toLowerCase() + serverSalt + req.body.clientSalt === req.body.sha) {
                 req.session.user = req.body.uname;
+                req.session.user_id = usrPass[0].UserID;
                 return res.json({isSuccessful: true});
             } else {
                 res.json({isSuccessful: false});
@@ -114,13 +116,27 @@ app.get("/getAll", async function (req, res) {
 });
 
 app.get("/getNew", async function (req, res) {
-    let newProducts = await getProducts.getSome(req.query.productType, 5);
+    let newProducts = await getProducts.getSome(req.query.productName, 5);
     res.send(newProducts);
 });
 
 app.get("/getOne", async function (req, res) {
-    let oneProducts = await getProducts.getOne(productType, req.query.vendorcode);
+    let oneProducts = await getProducts.getOne(req.query.productType, req.query.vendorcode);
     res.send(oneProducts);
+});
+
+app.post("/order", async function (req, res) {
+    if (!req.body) return res.sendStatus(400);
+    if (req.body.primary) {
+        if (req.session.user_id) {
+            let order = await makeOrder.makeAuthorizedOrder(req.body.order, req.session.user_id);
+            res.json({isSuccessful: true});
+        } else {
+            res.json({isSuccessful: false})
+        }
+    } else {
+        //Make order with given credits
+    }
 });
 
 

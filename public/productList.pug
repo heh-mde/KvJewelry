@@ -9,12 +9,16 @@
 	<script type="text/javascript" src="/client_scripts/filters.js"></script>
 	<script type="text/javascript" src="/client_scripts/url.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-	include header.html
+	<script type="text/javascript" src="/client_scripts/cart.js"></script>
+	<link rel="stylesheet" href="/stylesheets/modal_cart.css">
 	<link rel="stylesheet" href="/stylesheets/productsBlock.css">
 	<link rel="stylesheet" href="/stylesheets/productList.css">
-
+	<script type="text/javascript" src="/client_scripts/addToCart.js"></script>
+	include header_imports.html
 </head>
 <body>
+	include modal_cart.html
+	include header.html
 	<div class="filters_block">
 		<div class="filter" id="sort_filter">
 			<button class="filter_button" onclick="displayDropdown(1)">

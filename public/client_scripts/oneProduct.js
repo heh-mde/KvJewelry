@@ -1,7 +1,7 @@
-function getOne(product = "rings", vendorcode) {
-    $.get('/getOne', {vendorcode: vendorcode}, function (products) {
+async function getOne(product = "rings", vendorcode) {
+    $.get('/getOne', {productName: product, vendorcode: vendorcode}, function (products) {
         $('.product_container').append(`
-                <div class="product">
+                <div class="product" id="${vendorcode}">
                     <div class="image_container">
                         <img class="product_image" src="/images/product_photo/${products[0].image}" alt="">
                     </div>
@@ -14,9 +14,9 @@ function getOne(product = "rings", vendorcode) {
                         </div>
                         <div class="price"></div>
                         <div class="button_container">
-                            <button onclick="" class="product_basket">Добавить в корзину</button>
+                            <button onclick="" id="${product}_${products[0].vendorcode}" class="product_basket">Добавить в корзину</button>
                         </div>
-                    </div>
+                    </div>  
                 </div>`);
         if (products[0].stock != null) {
             let price = $(`.price`)
@@ -39,6 +39,7 @@ function getOne(product = "rings", vendorcode) {
                 'font-size': '32px'
             })
         }
+        $('.product_basket').on('click', addToCart);
     });
 }
 
