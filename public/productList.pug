@@ -5,6 +5,8 @@
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.2/jquery-ui.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/ui-lightness/jquery-ui.css">
 	<script type="text/javascript" src="/client_scripts/allProducts.js"></script>
+	<script type="text/javascript" src="/client_scripts/oneProduct.js"></script>
+	<script type="text/javascript" src="/client_scripts/storage.js"></script>
 	<script type="text/javascript" src="/client_scripts/paginator.js"></script>
 	<script type="text/javascript" src="/client_scripts/filters.js"></script>
 	<script type="text/javascript" src="/client_scripts/url.js"></script>
@@ -66,7 +68,7 @@
 			</div>
 		</div>
 		<div class="filter" id="price_filter">Цена:
-			<input class="price_form" id="price_min"> -
+			<input class="price_form" id="price_min" onchange="changeSlider()"> -
 			<input class="price_form" id="price_max">
 		</div>
 		<div id="price_slider"></div>

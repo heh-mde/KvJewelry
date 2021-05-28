@@ -111,12 +111,14 @@ products.get("/:productType", function (req, res) {
 });
 
 app.get("/getAll", async function (req, res) {
-    let allProducts = await getProducts.getSome(productName, req.query.limit);
+    productType = req.params["productType"];
+    let allProducts = await getProducts.getSome(req.query.productType, req.query.limit);
     res.send(allProducts);
 });
 
 app.get("/getNew", async function (req, res) {
-    let newProducts = await getProducts.getSome(req.query.productName, 5);
+    productType = req.params["productType"];
+    let newProducts = await getProducts.getSome(req.query.productType, req.query.limit);
     res.send(newProducts);
 });
 

@@ -6,7 +6,7 @@
  *@return {Array} List of products
  */
 
-async function getSome(product = "rings", limit) {
+async function getSome(product, limit) {
     const sql = require("mysql2");
     const fs = require('fs');
     let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
@@ -36,7 +36,7 @@ async function getSome(product = "rings", limit) {
     return data;
 }
 
-async function getOne(product = "rings", vendorcode) {
+async function getOne(product, vendorcode) {
     const sql = require("mysql2");
     const fs = require('fs');
     let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");

@@ -119,7 +119,7 @@ function deleteFromCart(target, cart) {
 
 async function addElementToCart(vendorCode, productName, amount, container) {
     return new Promise(resolve => {
-        $.get('/getOne', {productName, vendorcode: vendorCode}, function (product) {
+        $.get('/getOne', {productType: productName, vendorcode: vendorCode}, function (product) {
             container.append(`
             <div id=${productName}_${vendorCode} class="cart_product_container" id="${productName}_${vendorCode}">
                 <div class="cart_product_image_container">

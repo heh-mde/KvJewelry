@@ -34,18 +34,25 @@ function getPriceSlider(product){
     else{
         slider_values = price_scope;
     }
-    // min_price = Number(sessionStorage.getItem("min_price"));
-    // max_price = Number(sessionStorage.getItem("max_price"));
     $("#price_slider").slider({range:true,min:min_price,max:max_price,values: slider_values,slide:function(event,ui){
         $("#price_min").val(ui.values[0]);
         $("#price_max").val(ui.values[1]);
-        if (!$('.price_button').length) {
-            $("#price_slider").
-            append(`<button class='price_button' onclick='filterPrice()'>Применить</button>`);
-        }
+        // if (!$('.price_button').length) {
+        //     $("#price_slider").
+        //     append(`<button class='price_button' onclick='filterPrice()'>Применить</button>`);
+        // }
+    },stop:function(event,ui){
+        filterPrice();
     }});
     $("#price_min").val(slider_values[0]);
     $("#price_max").val(slider_values[1]);
+}
+
+function changeSlider(){
+    min = $("#price_min").val();
+    max = $("#price_max").val();
+    $("#price_slider").slider({values: [min,max]});
+    filterPrice();
 }
 
 function filterPrice(){
@@ -54,12 +61,14 @@ function filterPrice(){
     const min = $("#price_min").val();
     const max = $("#price_max").val();
     window.history.pushState("object or string", "Title", `${pathname}${without_price}price=${min}-${max}`);
+    getPage(1);
 }
 
 function changeSort(num) {
     without_sort = getWithoutParam("sort");
     const pathname = window.location.pathname;
     window.history.pushState("object or string", "Title", `${pathname}${without_sort}sort=${num}`);
+    getPage(1);
 }
 
 function changeFilter(id, filter){
@@ -81,6 +90,7 @@ function changeFilter(id, filter){
         }
         window.history.pushState("object or string", "Title", `${pathname}${without_filter}${current_filter}`);
     }
+    getPage(1);
 }
 
 function checkFilter(filter){

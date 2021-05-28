@@ -43,8 +43,7 @@ hr {
 
 .banner_main {
     position: relative;
-    margin: auto;
-    margin-bottom: 50px;
+    margin: 50px auto;
     height: 530px;
     background: url(../images/design.png) no-repeat;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
@@ -145,3 +144,8 @@ hr {
     margin-bottom: 50px;
 }
  */
+
+.test{
+    display: flex;
+    flex-wrap: wrap;
+}

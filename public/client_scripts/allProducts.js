@@ -1,6 +1,7 @@
 function getAll(limit = 1000) {
     const product = getProductName();
     let page = Number(getParam("page"));
+    getMaps();
     if (!Number.isInteger(page)){
         $('.product_block').append(`<div class="no_products">Страница каталога указана некоректно ("${getParam("page")}")<div>`);
         return 1;
@@ -25,6 +26,16 @@ function getAll(limit = 1000) {
     }
 }
 
+function getNew(product, limit=5) {
+    getMaps();
+    $.get('/getNew', {productType: product, limit: limit}, function (products) {
+        for (let i = 0; i <= 4; i++) {
+            addProduct(products[i], "new_list");
+        }
+        $('.product_basket').on('click', addToCart);
+    });
+}
+
 function show(page) {
     highlightFilter("sort");
     const product = getProductName();
@@ -35,6 +46,7 @@ function show(page) {
         $('.product_block').empty();;
         $('.pagination_item').remove();
         $('.product_block').append(`<div class="no_products">Отсутвуют товары по выбраным критериям<div>`);
+        getPriceSlider(product);
         return 1;
     }
     products = sortProducts(products);
@@ -53,7 +65,7 @@ function show(page) {
     if (page == page_num){
         iter_end = products.length;
     }
-    else if (page >= page_num){
+    else if (page > page_num){
         $('.product_block').empty();;
         $('.pagination_item').remove();
         $('.product_block').append(`<div class="no_products">Страница ${page} даного каталога не существует<div>`);   
@@ -61,39 +73,9 @@ function show(page) {
     }
 
     $('.product_block').empty();
+    const metal_name = JSON.parse(sessionStorage.getItem("metal_name"));
     for (let i = (page - 1) * prodOnPage; i < iter_end; i++) {
-        $('.product_block').append(`<div class="product" id="${products[i].vendorcode}">
-            <a href="/products/rings/${products[i].vendorcode}" class="product_link">
-            <div class="product_availability"></div>
-            <div class="product_info_block">
-                <p class="product_info">Артикул:  ${products[i].vendorcode}</p>
-                <p class="product_info">Вес:  ${products[i].weight}</p>
-                <p class="product_info">Метал:  ${products[i].metal}</p>
-            </div>
-            <div class="product_body">
-                <img class="product_image" src="/images/product_photo/${products[i].image}" alt="">
-                <div class="product_price" id=${products[i].vendorcode}_price>${products[i].price} грн</div>
-                <div class="product_name">${products[i].name}</div>
-            </div></a>
-            <button onclick="" id="${products[i].type}_${products[i].vendorcode}" class="product_basket"></button>
-            </div>`);
-
-        if (products[i].stock != null) {
-            $(`#${products[i].vendorcode}_price`)
-                .append(`<div class="product_stock">${products[i].stock} грн</div>`)
-                .css({
-                    'width': '80%',
-                    'margin': 'auto',
-                    'text-align': 'left',
-                    'color': 'black',
-                    'font-size': '14px',
-                    'text-decoration': 'line-through blue',
-                    'line-height': '30px'
-                });
-            if ($(window).width() <= '1200') {
-                $(`#${products[i].vendorcode}_price`).css({'font-size': '18px', 'line-height': '30px'});
-            }
-        }
+        addProduct(products[i], 'product_block');
     }
     $('.product_basket').on('click', addToCart);
     showPaginator(page, products.length);
@@ -164,7 +146,7 @@ function filterProducts(products, filter) {
     else {
         let filtered_products = [];
         for (i=0; i<products.length; i++) {
-            const product_prop = products[i][filter].split(",");
+            const product_prop = products[i][filter].replace(" ", "").split(",");
             let add_product = false;
             for (j=0; j<product_prop.length; j++) {
                 if (current_filter.includes(product_prop[j])) {

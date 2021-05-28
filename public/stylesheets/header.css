@@ -16,36 +16,6 @@ button:focus {
     width: 1100px;
 }
 
-@media all and (max-width: 1200px) {
-    .header {
-        width: 900px;
-    }
-}
-
-@media all and (max-width: 992px) {
-    .header {
-        width: 750px;
-    }
-}
-
-@media all and (max-width: 768px) {
-    .header {
-        width: 550px;
-    }
-}
-
-@media all and (max-width: 575px) {
-    .header {
-        width: 312px;
-    }
-}
-
-.up-header {
-    position: relative;
-    width: 100%;
-    height: 150px;
-}
-
 .logo {
     position: relative;
     float: left;
@@ -57,28 +27,12 @@ button:focus {
     background-position: 100% 30%;
 }
 
-.brand_name {
-    position: absolute;
-    bottom: 0;
-    left: 135px;
-    margin: 0;
-    font-size: 35px;
-    font-weight: 500;
-}
-
 .search {
     position: relative;
     top: 35%;
     float: right;
     width: auto;
     margin-right: 40px;
-}
-
-@media all and (max-width: 575px) {
-    .search {
-        top: auto;
-        margin: 10px;
-    }
 }
 
 .search_input {
@@ -155,6 +109,76 @@ button:focus {
 
 .basket:hover {
     color: #32D4E2;
+}
+
+@media all and (max-width: 1200px) {
+    .header {
+        width: 900px;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    .header {
+        width: 750px;
+    }
+}
+
+@media all and (max-width: 800px) {
+    .header {
+        width: 550px;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+        top: 43%;
+    }
+
+    .brand_name {
+        display: none;
+    }
+
+    .search {
+        float: right;
+        top: 50%;  
+    }
+
+    .basket {
+        margin-right: 0px;
+        top: 55%;
+    }
+
+    .basket:before {
+        font-size: 40px;
+    }
+}
+
+@media all and (max-width: 575px) {
+    .header {
+        width: 312px;
+    }
+}
+
+.up-header {
+    position: relative;
+    width: 100%;
+    height: 150px;
+}
+
+.brand_name {
+    position: absolute;
+    bottom: 0;
+    left: 135px;
+    margin: 0;
+    font-size: 35px;
+    font-weight: 500;
+}
+
+@media all and (max-width: 575px) {
+    .search {
+        top: auto;
+        margin: 10px;
+    }
 }
 
 .down-header {

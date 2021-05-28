@@ -27,8 +27,8 @@ function showPaginator(page, prod_num) {
 	}
 }
 
-function getPage(num) {
+function getPage(num, scroll=false) {
 	const params = getWithoutParam("page");
 	window.history.pushState("object or string", "Title", `/products/rings${params}page=${num}`);
-	$('body,html').animate({scrollTop: 220}, 400); 
+	$('body,html').animate({scrollTop: 220}, 400);
 }
