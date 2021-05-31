@@ -49,7 +49,7 @@ async function getOne(product, vendorcode) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT * FROM ${product} WHERE vendorcode = ${vendorcode}`)
+    const a = await sqlconnection.query(`SELECT * FROM ${product} WHERE vendorcode = ${vendorcode};`)
         .then(result => {
             data = result[0];
             data.type = product;

@@ -11,7 +11,6 @@ const redisStorage = require('connect-redis')(session);
 const redis = require('redis');
 const client = redis.createClient();
 const products = express.Router();
-let productName;
 let productId;
 let serverSalt;
 
@@ -42,7 +41,11 @@ app.get("/constructor", function (req, res) {
 });
 
 app.get("/login", function (req, res) {
-    res.send(pug.renderFile(__dirname + '/public/login.pug'));
+    if (req.session.user_id) {
+        res.redirect('/');
+    } else {
+        res.send(pug.renderFile(__dirname + '/public/login.pug'));
+    }
 });
 
 app.post("/login", async function (req, res) {
@@ -52,40 +55,50 @@ app.post("/login", async function (req, res) {
         res.json({serverSalt});
     }
     if (req.body.tryLogin) {
-        let usrPass = await getUser.getUserPassAndId(req.body.uname);
-        if (usrPass.length) {
-            let hash = usrPass[0]['HEX(PasswordHash)'];
-            if (hash.toLowerCase() + serverSalt + req.body.clientSalt === req.body.sha) {
-                req.session.user = req.body.uname;
-                req.session.user_id = usrPass[0].UserID;
-                return res.json({isSuccessful: true});
-            } else {
-                res.json({isSuccessful: false});
-            }
-        } else {
-            res.json({isSuccessful: false});
-        }
+        await getUser.getUserPassAndId(req.body.uname)
+            .then((usrPass) => {
+                if (usrPass.length) {
+                    let hash = usrPass[0]['HEX(PasswordHash)'];
+                    if (hash.toLowerCase() + serverSalt + req.body.clientSalt === req.body.sha) {
+                        req.session.user = req.body.uname;
+                        req.session.user_id = usrPass[0].UserID;
+                        return res.json({isSuccessful: true});
+                    } else {
+                        res.json({isSuccessful: false});
+                    }
+                } else {
+                    res.json({isSuccessful: false});
+                }
+            })
+            .catch(()=>res.sendStatus(500));
     }
 })
 
 app.post("/register", async function (req, res) {
     if (!req.body) return res.sendStatus(400);
-    let usrName = await getUser.getUserByLogin(req.body.uname);
-    let usrMail = await getUser.getUserByEmail(req.body.email);
-    if (usrName.length) {
-        if (usrMail.length) {
-            res.json({login_exists: true, mail_exists: true, created: false});
-            return
-        }
-        res.json({login_exists: true, mail_exists: false, created: false});
-        return
-    }
-    if (usrMail.length) {
-        res.json({login_exists: false, mail_exists: true, created: false});
-    } else {
-        let r = await getUser.addUser(req.body.uname, req.body.email, req.body.pass, req.body.name, req.body.surname);
-        res.json({created: true});
-    }
+    await getUser.getUserByLogin(req.body.uname)
+        .then(async (usrName) => {
+                await getUser.getUserByEmail(req.body.email)
+                    .then(async (usrMail) => {
+                            if (usrName.length) {
+                                if (usrMail.length) {
+                                    res.json({login_exists: true, mail_exists: true, created: false});
+                                    return
+                                }
+                                res.json({login_exists: true, mail_exists: false, created: false});
+                                return
+                            }
+                            if (usrMail.length) {
+                                res.json({login_exists: false, mail_exists: true, created: false});
+                            } else {
+                                let r = await getUser.addUser(req.body.uname, req.body.email, req.body.pass, req.body.name, req.body.surname, req.body.phone)
+                                    .then(() => res.json({created: true}))
+                                    .catch(() => res.sendStatus(500));
+                            }
+                        }
+                    ).catch(() => res.sendStatus(500));
+            }
+        ).catch(() => res.sendStatus(500));
 })
 
 app.get('/logout', function (req, res) {
@@ -100,44 +113,52 @@ app.get('/logout', function (req, res) {
 app.use("/products", products);
 
 products.get("/:productType/:id", function (req, res) {
-    productType = req.params["productType"];
+    let productType = req.params["productType"];
     productId = req.params["productId"];
     res.send(pug.renderFile(__dirname + `/public/product.pug`));
 });
 
 products.get("/:productType", function (req, res) {
-    productType = req.params["productType"];
+    let productType = req.params["productType"];
     res.send(pug.renderFile(__dirname + `/public/productList.pug`));
 });
 
 app.get("/getAll", async function (req, res) {
-    productType = req.params["productType"];
-    let allProducts = await getProducts.getSome(req.query.productType, req.query.limit);
-    res.send(allProducts);
+    let productType = req.params["productType"];
+     await getProducts.getSome(req.query.productType, req.query.limit)
+        .then((allProducts) => res.send(allProducts))
+        .catch(() => res.sendStatus(500));
 });
 
 app.get("/getNew", async function (req, res) {
-    productType = req.params["productType"];
-    let newProducts = await getProducts.getSome(req.query.productType, req.query.limit);
-    res.send(newProducts);
+    let productType = req.params["productType"];
+    await getProducts.getSome(req.query.productType, req.query.limit)
+        .then((newProduct) => res.send(newProduct))
+        .catch(() => res.sendStatus(500));
 });
 
 app.get("/getOne", async function (req, res) {
-    let oneProducts = await getProducts.getOne(req.query.productType, req.query.vendorcode);
-    res.send(oneProducts);
+    await getProducts.getOne(req.query.productType, req.query.vendorcode)
+        .then((oneProduct) => res.send(oneProduct))
+        .catch(() => res.sendStatus(500));
+
 });
 
 app.post("/order", async function (req, res) {
     if (!req.body) return res.sendStatus(400);
     if (req.body.primary) {
         if (req.session.user_id) {
-            let order = await makeOrder.makeAuthorizedOrder(req.body.order, req.session.user_id);
-            res.json({isSuccessful: true});
+            await makeOrder.makeAuthorizedOrder(req.body.order, req.session.user_id)
+                .then(() => res.json({isSuccessful: true}))
+                .catch(() => res.sendStatus(500));
+
         } else {
             res.json({isSuccessful: false})
         }
     } else {
-        //Make order with given credits
+        await makeOrder.makeUnauthorizedOrder(req.body.order, req.body.data)
+            .then(() => res.json({isSuccessful: true}))
+            .catch(() => res.sendStatus(500));
     }
 });
 

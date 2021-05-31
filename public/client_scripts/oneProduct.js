@@ -1,5 +1,5 @@
 async function getOne(product = "rings", vendorcode) {
-    $.get('/getOne', {productName: product, vendorcode: vendorcode}, function (products) {
+    $.get('/getOne', {productType: product, vendorcode: vendorcode}, function (products) {
         $('.product_container').append(`
                 <div class="product" id="${vendorcode}">
                     <div class="image_container">
@@ -73,7 +73,7 @@ function addProduct(product, block) {
             <div class="product_price" id=${product.vendorcode}_price>${product.price} грн</div>
             <div class="product_name">${product.name}</div>
         </div></a>
-        <button onclick="" id="${getProductName()}_${product.vendorcode}" class="product_basket"></button>
+        <button onclick="" id="${product.type}_${product.vendorcode}" class="product_basket"></button>
         </div>`);
 
     if (product.stock != null) {

@@ -82,7 +82,7 @@
     display: none;
 }
 
-.name_warning, .email_warning, .uname_incorrect, .email_incorrect, .pass_incorrect, .name_incorrect, .surname_incorrect, .login_warning {
+.name_warning, .email_warning, .uname_incorrect, .email_incorrect, .pass_incorrect, .name_incorrect, .surname_incorrect, .login_warning, .phone_incorrect {
     color: red;
     font-size: 18px;
 }

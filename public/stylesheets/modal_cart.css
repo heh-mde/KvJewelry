@@ -112,3 +112,64 @@
 .item_deleted {
   display: none;
 }
+
+.unauthorized_modal_container {
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.unauthorized_content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 45%;
+  min-height: 100px;
+}
+
+.contact_close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.contact_close:hover,
+.contact_close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.contact_form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.contact_call_back_label, .contact_call_back{
+  display: inline-block;
+}
+
+.contact_form > input {
+  font-size: 26px;
+  width: 80%;
+  margin: 10px 0 10px;
+}
+
+.contact_form > label {
+  font-size: 26px;
+}
+
+.name_incorrect, .surname_incorrect, .email_incorrect, .phone_incorrect {
+  color: red;
+  font-size: 18px;
+}

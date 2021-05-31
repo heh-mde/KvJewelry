@@ -75,6 +75,7 @@ async function registerUser(event) {
     let pass = $('.register_form > input[name="psw"]');
     let name = $('.register_form > input[name="name"]');
     let surname = $('.register_form > input[name="surname"]');
+    let phone = $('.register_form > input[name="phone"]');
     $('.name_warning').remove();
     $('.email_warning').remove();
     $('.uname_incorrect').remove();
@@ -82,6 +83,7 @@ async function registerUser(event) {
     $('.pass_incorrect').remove();
     $('.name_incorrect').remove();
     $('.surname_incorrect').remove();
+    $('.phone_incorrect').remove();
     let flag = 0;
     if (uname[0].value.length > 30 || uname[0].value.length < 4 || uname[0].value.replace(/[a-zA-Z0-9_]+/g, "")) {
         uname.after(`<div class="uname_incorrect">Имя пользователя должно содержать не больше 30 символов и состоять только из букв, цифр и символа _.</div>`);
@@ -108,6 +110,11 @@ async function registerUser(event) {
         flag = 1;
     }
 
+    if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(phone[0].value)) {
+        phone.after(`<div class="phone_incorrect">Указан неверный телефон.</div>`);
+        flag = 1;
+    }
+
     if (!flag) {
         const passSHA = new Hashes.SHA512().hex(pass[0].value);
         const res = await fetch('/register', {
@@ -121,7 +128,8 @@ async function registerUser(event) {
                 email: email[0].value,
                 pass: passSHA,
                 name: name[0].value,
-                surname: surname[0].value
+                surname: surname[0].value,
+                phone: phone[0].value
             })
         }).then(async function (res) {
             let r = await res.json();

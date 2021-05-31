@@ -106,7 +106,7 @@ async function getUserPassAndId(user) {
     return data;
 }
 
-async function addUser(login, email, pass, name, surname) {
+async function addUser(login, email, pass, name, surname, phone) {
     const sql = require("mysql2");
     const fs = require('fs');
     let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
@@ -119,7 +119,7 @@ async function addUser(login, email, pass, name, surname) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`INSERT INTO \`user\` (\`Email\`, \`Login\`, \`PasswordHash\`, \`LastName\`, \`FirstName\`) VALUES ('${email}', '${login}', UNHEX('${pass}'), '${name}', '${surname}');`)
+    const a = await sqlconnection.query(`INSERT INTO \`user\` (\`Email\`, \`Login\`, \`PasswordHash\`, \`LastName\`, \`FirstName\`, \`Phone\`) VALUES ('${email}', '${login}', UNHEX('${pass}'), '${name}', '${surname}', '${phone}');`)
         .then(result => {
             data = result[0];
         }).catch(function (err) {

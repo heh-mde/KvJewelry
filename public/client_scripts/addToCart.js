@@ -2,7 +2,6 @@ function addToCart(e) {
     let cart = window.localStorage.getItem('cart');
     let product = e.target.id.split("_")[0];
     let id = e.target.id.split("_")[1];
-    console.log(product, id);
     if (!cart) {
         cart = {}
         cart[product] = {}

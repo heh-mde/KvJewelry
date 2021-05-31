@@ -55,14 +55,72 @@ $(function () {
                         body: JSON.stringify(order)
                     }).then(async function (res) {
                         let r = await res.json();
-                        console.log(r);
                         if (r.isSuccessful) {
                             window.localStorage.removeItem('cart');
                             $('.cart_content_container').html(`<div>Ваш заказ успешно оформлен!</div>`);
                             $('.cart_total_container').remove();
                             $('.basket_counter').html(`0`);
                         } else {
-                            //TODO
+                            $('body').prepend(`
+                            <div class="unauthorized_modal_container">
+                                <div class="unauthorized_content">
+                                    <span class="contact_close">&times;</span>
+                                    <form action="/order" method="post" class="contact_form">
+                                        <label for="name" class="contact_name_label"><b>Имя</b></label>
+                                        <input type="text" placeholder="Введите имя" name="name" autocomplete="off" required>
+                                        <label for="surname" class="contact_surname_label"><b>Фамилия</b></label>
+                                        <input type="text" placeholder="Введите фамилию" name="surname" autocomplete="off" required>
+                                        <label for="email" class="contact_email_label"><b>Почта</b></label>
+                                        <input type="text" placeholder="Введите почту" name="email" required>
+                                        <label for="phone" class="contact_phone_label"><b>Телефон</b></label>
+                                        <input type="text" placeholder="Введите телефон" name="phone" autocomplete="off" required>
+                                        <label for="call_back" class="contact_call_back_label"><input type="checkbox" checked class="contact_call_back" name="call_back">Перезвонить мне</label>
+                                        <button type="submit">Отправить</button>
+                                    </form>
+                                </div>
+                            </div>
+                            `)
+                            $('.contact_form').on('submit', async function (e) {
+                                e.preventDefault();
+                                $('.name_incorrect').remove();
+                                $('.surname_incorrect').remove();
+                                $('.email_incorrect').remove();
+                                $('.phone_incorrect').remove();
+                                let data = formCheck()
+                                if (data) {
+                                    let cart = JSON.parse(window.localStorage.getItem('cart'));
+                                    let order = {};
+                                    order.order = cart;
+                                    order.data = data;
+                                    const res2 = await fetch(`/order`, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        mode: 'cors',
+                                        body: JSON.stringify(order)
+                                    }).then(async function (res3) {
+                                        let r2 = await res3.json();
+                                        if (r2.isSuccessful) {
+                                            window.localStorage.removeItem('cart');
+                                            $('.unauthorized_modal_container').remove();
+                                            $('.cart_content_container').html(`<div>Ваш заказ успешно оформлен!</div>`);
+                                            $('.cart_total_container').remove();
+                                            $('.basket_counter').html(`0`);
+                                        }
+                                    })
+                                }
+                            });
+
+                            $('.contact_close').on('click', function (e) {
+                                $('.unauthorized_modal_container').remove();
+                            })
+
+                            $('.unauthorized_modal_container').on('click', function (e) {
+                                if (e.target === $('.unauthorized_modal_container')[0]) {
+                                    $('.unauthorized_modal_container').remove();
+                                }
+                            });
                         }
                     });
                 } else {
@@ -85,6 +143,43 @@ $(function () {
         }
     }
 })
+
+function formCheck() {
+    let name = $('.contact_form > input[name="name"]');
+    let surname = $('.contact_form > input[name="surname"]');
+    let email = $('.contact_form > input[name="email"]');
+    let phone = $('.contact_form > input[name="phone"]');
+    let call_back = $('.contact_call_back');
+    let valid = 1;
+
+    if (name[0].value.replace(/[ A-Za-z-А-Яа-я]/g, "") || name[0].value.length > 255) {
+        name.after(`<div class="name_incorrect">Имя может содержать кирилицу либо латиницу, пробелы и символ -.</div>`);
+        valid = 0;
+    }
+
+    if (surname[0].value.replace(/[ A-Za-z-А-Яа-я]/g, "") || surname[0].value.length > 255) {
+        surname.after(`<div class="surname_incorrect">Фамилия может содержать кирилицу либо латиницу, пробелы и символ -.</div>`);
+        valid = 0;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+$/.test(email[0].value)) {
+        email.after(`<div class="email_incorrect">Указана неверная почта.</div>`);
+        valid = 0;
+    }
+
+    if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(phone[0].value)) {
+        phone.after(`<div class="phone_incorrect">Указан неверный телефон.</div>`);
+        valid = 0;
+    }
+
+    return valid ? {
+        name: name[0].value,
+        surname: surname[0].value,
+        email: email[0].value,
+        phone: phone[0].value,
+        call_back: call_back[0].checked
+    } : valid;
+}
 
 function deleteFromCart(target, cart) {
     let elToRemove = $(target).parent()
