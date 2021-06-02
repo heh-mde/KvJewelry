@@ -7,15 +7,17 @@
 
 .filters_block {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     width: 75%;
     margin: auto;
     padding: 30px;
 }
 
 .filter {
-    height: 40px;
-    width: 100%;
-    margin: 0 20px;
+    height: 50px;
+    width: 23%;
+    margin: 10px 0px;
     position: relative;
 }
 
@@ -32,7 +34,7 @@
     display: inline-block;
 }
 
-#filter_icon1, #filter_icon2 {
+i {
     display: inline-block;
     font-family: FontAwesome;
     font-style: normal;
@@ -57,7 +59,7 @@
     width: 80px;
 }
 
-.filter_checkbox {
+.product_checkbox, .metal_checkbox {
     width: 17px;
     height: 17px;
     position: absolute;
@@ -72,24 +74,23 @@
     margin-top: 10px;
 }
 
-#price_filter {
-    width: 100%;
+#price_form_block {
     border: none;
     background: none;
     text-align: left;
-    font-size: 1.7vw;
-    padding: 5px;
+    font-size: 1.4vw;
+    padding-top: 5px;
+    width: 100%;
+    margin: auto;
 }
 
 #price_slider {
-    display: inline-block;
-    width: 140%;
-    padding-top: 5px;
-    margin-top: 15px;
+    width: 100%;
+    height: 15px; 
 }
 
 .price_form {
-    width: 25%;
+    width: 30%;
     font-size: 17px;
 }
 
@@ -115,89 +116,6 @@
     background-color: #fff6e0;
     box-shadow: 0.4em 0.4em 5px rgba(122, 122, 122, 0.5);
     border-radius: 0px 0px 5px 5px;
-}
-
-@media all and (max-width: 1000px) {
-
-    .product_block {
-        width: 100%;
-    }
-
-    .product {
-        width: 50%;
-        height: 400px;
-        margin-bottom: 0px;
-        padding: 0px;
-    }
-
-    .product_body {
-        height: 100%;
-        width: 100%;
-    }
-
-    .product:hover .product_info_block {
-        display: none;
-    }
-
-    .product_price {
-        height: 50px;
-        line-height: 50px;
-        font-size: 25px;
-    }
-
-    .product_stock {
-        font-size: 25px;
-    }
-
-    .product_image {
-        width: 80%;
-    }
-
-    .product_name {
-        height: 80px;
-        font-size: 20px;
-    }
-
-    .filters_block {
-        width: 100%;
-        display: block;
-    }
-
-    .filter {
-        display: inline-block;
-        width: 45%;
-        height: 70px;
-        margin-bottom: 50px;
-        margin-right: 0px;
-    }
-
-    #price_filter {
-        display: inline-block;
-        width: 45%;
-        font-size: 30px;
-    }
-
-    .price_form {
-        width: 25%;
-        font-size: 27px;
-        border: 1px solid black;
-    }
-
-    #price_slider {
-        display: inline-block;
-        width: 45%;
-        height: 20px;
-    }
-
-    .ui-slider .ui-slider-handle {
-        height: 40px;
-        width: 40px;
-        top: -10px;
-    }
-
-    .product_availability:before {
-        right: 20px;
-    }
 }
 
 .no_products{
@@ -254,32 +172,52 @@
     border-color: #f6a828;
 }
 
-@media all and (min-width: 300px) {
-    .product {
-        width: 50%;
+@media all and (max-width: 1000px) {
+    .product_block {
+        width: 100%;
     }
-}
-
-@media all and (min-width: 800px) {
-    .product {
-        width: 33%;
+    
+    .filters_block {
+        width: 100%;
+        display: flex;
     }
-}
 
-@media all and (min-width: 1200px) {
-    .product {
+    .filter {
+        width: 30%;
+        height: 70px;
+    }
+
+    #price_form_block {
+        font-size: 30px;
+    }
+
+    .price_form {
         width: 25%;
+        font-size: 27px;
+        border: 1px solid black;
+    }
+
+    #price_slider {
+        display: inline-block;
+        width: 90%;
+        height: 20px;
+    }
+
+    .ui-slider .ui-slider-handle {
+        height: 40px;
+        width: 40px;
+        top: -10px;
     }
 }
 
-@media all and (min-width: 1466px) {
-    .product {
-        width: 20%;
+@media all and (max-width: 800px) {
+    .filter {
+        width: 45%;
     }
 }
 
-@media all and (min-width: 1920px) {
-    .product {
-        width: 16%;
+@media all and (max-width: 560px) {
+    .filter {
+        width: 100%;
     }
 }

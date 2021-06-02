@@ -6,7 +6,7 @@
  *@return {Array} List of products
  */
 
-async function getSome(product, limit) {
+async function getSome(products, limit) {
     const sql = require("mysql2");
     const fs = require('fs');
     let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
@@ -18,13 +18,16 @@ async function getSome(product, limit) {
         password: db_password
     }).promise();
 
+    const product_list = products.split(',');
+    products = ""
+    for (i = 0; i < product_list.length; i++){
+        products += `'${product_list[i]}',`
+    }
+    products = products.slice(0,-1);
     let data;
-    const a = await sqlconnection.query(`SELECT * FROM ${product} ORDER BY newid DESC LIMIT ${limit}`)
+    const a = await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) ORDER BY date DESC LIMIT ${limit}`)
         .then(result => {
             data = result[0];
-            for (const item in data) {
-                data[item].type = product;
-            }
         }).catch(function (err) {
             console.log(err);
         });
@@ -36,7 +39,7 @@ async function getSome(product, limit) {
     return data;
 }
 
-async function getOne(product, vendorcode) {
+async function getOne(vendorcode) {
     const sql = require("mysql2");
     const fs = require('fs');
     let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
@@ -49,10 +52,9 @@ async function getOne(product, vendorcode) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT * FROM ${product} WHERE vendorcode = ${vendorcode};`)
+    const a = await sqlconnection.query(`SELECT * FROM jewelry WHERE vendorcode = ${vendorcode};`)
         .then(result => {
             data = result[0];
-            data.type = product;
         }).catch(function (err) {
             console.log(err)
         });

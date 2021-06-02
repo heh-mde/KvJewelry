@@ -22,12 +22,50 @@
 	include modal_cart.html
 	include header.html
 	<div class="filters_block">
-		<div class="filter" id="sort_filter">
+		<div class="filter" id="product_filter">
 			<button class="filter_button" onclick="displayDropdown(1)">
-				<div class="filter_text">Сортировка</div>
+				<div class="filter_text">Тип украшения</div>
 				<i id="filter_icon1" class="fa-angle-double-down"></i>
 			</button>
 			<div id="dropDown1" class="hideDrop">
+				<div class="filter_block">
+				<div class="checkbox_block" id="checkbox_1">
+					<input type="checkbox" class="product_checkbox" id="ring" name="ring" onclick="changeFilter(id, 'product')">
+					<div for="ring" class="filter_block_text">Кольца</div>
+				</div>
+				</div>
+				<div class="filter_block">
+				<div class="checkbox_block" id="checkbox_2">
+					<input type="checkbox" class="product_checkbox" id="bracelet" name="bracelet" onclick="changeFilter(id, 'product')">
+					<div for="bracelet" class="filter_block_text">Браслеты</div>
+				</div>
+				</div>
+				<div class="filter_block">
+				<div class="checkbox_block" id="checkbox_3">
+					<input type="checkbox" class="product_checkbox" id="chain" name="chain" onclick="changeFilter(id, 'product')">
+					<div for="chain" class="filter_block_text">Цепочки</div>
+				</div>
+				</div>
+				<div class="filter_block">
+				<div class="checkbox_block" id="checkbox_4">
+					<input type="checkbox" class="product_checkbox" id="earring" name="earring" onclick="changeFilter(id, 'product')">
+					<div for="earring" class="filter_block_text">Серьги</div>
+				</div>
+				</div>
+				<div class="filter_block">
+					<div class="checkbox_block" id="checkbox_5">
+						<input type="checkbox" class="product_checkbox" id="signet" name="signet" onclick="changeFilter(id, 'product')">
+						<div for="signet" class="filter_block_text">Печатки</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="filter" id="sort_filter">
+			<button class="filter_button" onclick="displayDropdown(2)">
+				<div class="filter_text">Сортировка</div>
+				<i id="filter_icon2" class="fa-angle-double-down"></i>
+			</button>
+			<div id="dropDown2" class="hideDrop">
 				<button class="filter_block" id = "sort_4" onclick="changeSort(4)">Цена (по возрастанию)</button>
 				<button class="filter_block" id = "sort_3" onclick="changeSort(3)">Цена (по убыванию)</button>
 				<button class="filter_block" id = "sort_2" onclick="changeSort(2)">Есть в наличии</button>
@@ -35,49 +73,50 @@
 				<button class="filter_block" id = "sort_0" onclick="changeSort(0)">По новизне</button>
 			</div>
 		</div>
+		<div class="filter">
+			<div id="price_slider"></div>
+			<div id="price_form_block">Цена:
+				<input class="price_form" id="price_min" onchange="changeSlider()"> -
+				<input class="price_form" id="price_max">
+			</div>
+		</div>
 		<div class="filter" id="metal_filter">
-			<button class="filter_button" onclick="displayDropdown(2)">
+			<button class="filter_button" onclick="displayDropdown(3)">
 				<div class="filter_text">Металл</div>
-				<i id="filter_icon2" class="fa-angle-double-down"></i>
+				<i id="filter_icon3" class="fa-angle-double-down"></i>
 			</button>
-			<div id="dropDown2" class="hideDrop">
+			<div id="dropDown3" class="hideDrop">
 				<div class="filter_block">
 				<div class="checkbox_block" id="checkbox_1">
-					<input type="checkbox" class="filter_checkbox" id="wh_gold" name="wh_gold" onclick="changeFilter(id, 'metal')">
+					<input type="checkbox" class="metal_checkbox" id="wh_gold" name="wh_gold" onclick="changeFilter(id, 'metal')">
 					<div for="wh_gold" class="filter_block_text">Белое золото</div>
 				</div>
 				</div>
 				<div class="filter_block">
 				<div class="checkbox_block" id="checkbox_2">
-					<input type="checkbox" class="filter_checkbox" id="yl_gold" name="yl_gold" onclick="changeFilter(id, 'metal')">
+					<input type="checkbox" class="metal_checkbox" id="yl_gold" name="yl_gold" onclick="changeFilter(id, 'metal')">
 					<div for="yl_gold" class="filter_block_text">Желтое золото</div>
 				</div>
 				</div>
 				<div class="filter_block">
 				<div class="checkbox_block" id="checkbox_3">
-					<input type="checkbox" class="filter_checkbox" id="platin" name="platin" onclick="changeFilter(id, 'metal')">
+					<input type="checkbox" class="metal_checkbox" id="platin" name="platin" onclick="changeFilter(id, 'metal')">
 					<div for="platinum" class="filter_block_text">Платина</div>
 				</div>
 				</div>
 				<div class="filter_block">
 				<div class="checkbox_block" id="checkbox_4">
-					<input type="checkbox" class="filter_checkbox" id="silver" name="silver" onclick="changeFilter(id, 'metal')">
+					<input type="checkbox" class="metal_checkbox" id="silver" name="silver" onclick="changeFilter(id, 'metal')">
 					<div for="silver" class="filter_block_text">Серебро</div>
 				</div>
 				</div>
 			</div>
 		</div>
-		<div class="filter" id="price_filter">Цена:
-			<input class="price_form" id="price_min" onchange="changeSlider()"> -
-			<input class="price_form" id="price_max">
-		</div>
-		<div id="price_slider"></div>
 	</div>
 	<ul class="pagination_block"></ul>
 	<div class="product_block"></div>
 	<ul class="pagination_block"></ul>
-	<script type="text/javascript">getAll()</script>
-	<script type="text/javascript">checkFilter("metal")</script>
+	<script type="text/javascript">checkFilter("metal");checkFilter("product");getAll()</script>
 	<script type="text/javascript">sessionStorage.setItem("params", window.location.search);setInterval(checkURL, 100)</script>
 </body>
 </html>

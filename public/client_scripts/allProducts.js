@@ -1,35 +1,37 @@
 function getAll(limit = 1000) {
-    const product = getProductName();
+    let productTypes = getParam("product");
+    if (productTypes == ""){
+        productTypes = "ring,bracelet,chain,earring,signet";
+    }
     let page = Number(getParam("page"));
-    getMaps();
     if (!Number.isInteger(page)){
         $('.product_block').append(`<div class="no_products">Страница каталога указана некоректно ("${getParam("page")}")<div>`);
         return 1;
     }
     //window.history.pushState("object or string", "Title", `/products/${product}?page=1&sort=0&metall=0&price=500-50000`);
-    if (sessionStorage.getItem(product) == null || page == 1){
-        $.get('/getAll', {productType:product, limit: limit}, function (products) {
-            if (products == ""){
-                $('.product_block').append(`<div class="no_products">Нет товара<div>`);
-            }
-            else{
-                sessionStorage.setItem(product, JSON.stringify(products));
-            }
-        }).done(function(products) {
-            if (products != ""){
-                show(page);
-            }
-        });
-    }
-    else{
-        show(page);
-    }
+    $.get('/getSome', {productTypes:productTypes, limit: limit}, function (products) {
+        if (products == ""){
+            $('.product_block').empty();
+            $('.pagination_item').remove();
+            $('.product_block').append(`<div class="no_products">Нет товара<div>`);
+        }
+        else{
+            sessionStorage.setItem("products", JSON.stringify(products));
+        }
+    }).done(function(products) {
+        if (products != ""){
+            show(page);
+        }
+    });
 }
 
-function getNew(product, limit=5) {
-    getMaps();
-    $.get('/getNew', {productType: product, limit: limit}, function (products) {
-        for (let i = 0; i <= 4; i++) {
+function getNew() {
+    let productTypes = getParam("product");
+    if (productTypes == ""){
+        productTypes = "ring,bracelet,chain,earring,signet";
+    }    
+    $.get('/getSome', {productTypes: productTypes, limit: 6}, function (products) { 
+        for (let i = 0; i < 6; i++) {
             addProduct(products[i], "new_list");
         }
         $('.product_basket').on('click', addToCart);
@@ -38,15 +40,14 @@ function getNew(product, limit=5) {
 
 function show(page) {
     highlightFilter("sort");
-    const product = getProductName();
-    let products = JSON.parse(sessionStorage.getItem(product));
+    let products = JSON.parse(sessionStorage.getItem("products"));
     products = filterProducts(products, "metal");
     products = filterProductsPrice(products);
     if (products.length == 0){
-        $('.product_block').empty();;
+        $('.product_block').empty();
         $('.pagination_item').remove();
         $('.product_block').append(`<div class="no_products">Отсутвуют товары по выбраным критериям<div>`);
-        getPriceSlider(product);
+        getPriceSlider();
         return 1;
     }
     products = sortProducts(products);
@@ -79,7 +80,7 @@ function show(page) {
     }
     $('.product_basket').on('click', addToCart);
     showPaginator(page, products.length);
-    getPriceSlider(product);
+    getPriceSlider();
 }
 
 function sortProducts(products) {
