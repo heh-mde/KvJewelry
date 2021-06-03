@@ -81,16 +81,70 @@
     border-bottom: 1px solid #ead9c5;
 }
 
-.product_availability:before {
-    cursor: help;
+.available::before {
     position: absolute;
-    bottom: 3px;
-    right: 5px;
-    content: "\f058";
+    right: 0;
+    top: 10px;
     font-family: FontAwesome;
-    font-size: 17px;
     color: green;
-    z-index: 3;
+    content: "\f058";
+    font-size: 17px;
+    z-index: 5;
+}
+
+.unavailable::before {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    font-family: FontAwesome;
+    color: red;
+    content: "\f057";
+    font-size: 17px;
+    z-index: 5;
+}
+
+@media all and (max-width: 1000px) {
+    .available::before {
+        right: 5px;
+    }
+
+    .unavailable::before {
+        right: 5px;
+    }
+}
+
+.product_favorite {
+    display: none;
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    width: 26px;
+    height: 26px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.product_favorite:before {
+    position: absolute;
+    content: "\f006";
+    font-family: FontAwesome;
+    z-index: 2;
+    font-size: 16px;
+    bottom: 0px;
+    left: 0px;
+    color: black;
+}
+
+.product_favorite.favorited:before {
+    position: absolute;
+    content: "\f005";
+    font-family: FontAwesome;
+    z-index: 2;
+    font-size: 16px;
+    bottom: 0px;
+    left: 0px;
+    color: black;
 }
 
 .product_basket {
@@ -142,7 +196,7 @@
         z-index: 2;
     }
 
-    .product:hover .product_basket {
+    .product:hover .product_basket, .product:hover .product_favorite {
         display: block;
     }
 }
@@ -153,7 +207,7 @@
 
 @media all and (max-width: 1000px) {
     .product {
-        width: 50%;
+        width: 49%;
         height: 400px;
         margin-bottom: 0px;
         padding: 0px;

@@ -21,25 +21,15 @@ SET time_zone = "+00:00";
 --
 -- База данных: `hehmdetk_kvjew`
 --
-
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Jewelery`
+-- Структура таблицы `jewelry`
 --
 
-CREATE TABLE `Jewelery` (
-  `Cringe` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `rings`
---
-
-CREATE TABLE `rings` (
-  `newid` int(10) UNSIGNED NOT NULL,
+CREATE TABLE `jewelry` (
+  `newid` int(10) UNSIGNED NOT NULL PRIMARY KEY,
+  `type` varchar(15) NOT NULL,
   `vendorcode` smallint(6) NOT NULL,
   `name` varchar(100) NOT NULL,
   `price` double NOT NULL,
@@ -51,17 +41,18 @@ CREATE TABLE `rings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `rings`
+-- Дамп данных таблицы `jewelry`
 --
 
-INSERT INTO `rings` (`newid`, `vendorcode`, `name`, `price`, `stock`, `availability`, `weight`, `metal`, `image`) VALUES
-(1, 12, 'Золотое обручальное кольцо', 1590, NULL, 0, 2, 'Золото', '12.jpg'),
-(2, 111, 'Серебряное обручальное кольцо с фианитами', 1018, 673, 0, 1, 'Серебро', '111.jpg'),
-(5, 417, 'Золотое обручальное кольцо в комбинированном цвете', 4750, NULL, 0, 5, 'Золото 585', '417.jpg'),
-(6, 370, 'Узорное обручальное кольцо из золота и серебра с бриллиантами ', 23000, NULL, 0, 5, 'Золото, Серебро', '370.png'),
-(9, 433, 'Золотое кольцо с дорожкой из бриллиантов', 23300, 21000, 0, 5, 'Белое золото', '433.jpg'),
-(10, 488, 'Серебряное кольцо с бриллиантом ', 12700, NULL, 0, 4, 'Серебро', '488.jpg'),
-(11, 710, 'Серебряное обручальное кольцо', 770, NULL, 0, 9, 'Серебро', '710.png');
+INSERT INTO `jewelry` (`newid`, `type`, `vendorcode`, `name`, `price`, `stock`, `availability`, `weight`, `metal`, `image`) VALUES
+(1, 'ring',  12, 'Золотое обручальное кольцо', 1590, NULL, 0, 2, 'yl_gold', '12.jpg'),
+(2, 'ring', 111, 'Серебряное обручальное кольцо с фианитами', 1018, 673, 0, 1, 'silver', '111.jpg'),
+(5, 'ring', 417, 'Золотое обручальное кольцо в комбинированном цвете', 4750, NULL, 0, 5, 'yl_gold', '417.jpg'),
+(6, 'ring', 370, 'Узорное обручальное кольцо из золота и серебра с бриллиантами ', 23000, NULL, 0, 5, 'yl_gold, silver', '370.png'),
+(9, 'ring', 433, 'Золотое кольцо с дорожкой из бриллиантов', 23300, 21000, 0, 5, 'wh_gold', '433.jpg'),
+(10, 'ring', 488, 'Серебряное кольцо с бриллиантом ', 12700, NULL, 0, 4, 'silver', '488.jpg'),
+(11, 'ring', 710, 'Серебряное обручальное кольцо', 770, NULL, 0, 9, 'silver', '710.png'),
+(12, 'ring', 890, 'Платиновая срака', 1200, NULL, 0, 9, 'platin', '710.png');
 
 --
 -- Индексы сохранённых таблиц
@@ -70,7 +61,7 @@ INSERT INTO `rings` (`newid`, `vendorcode`, `name`, `price`, `stock`, `availabil
 --
 -- Индексы таблицы `rings`
 --
-ALTER TABLE `rings`
+ALTER TABLE `jewelry`
   ADD PRIMARY KEY (`newid`);
 
 --
@@ -80,8 +71,8 @@ ALTER TABLE `rings`
 --
 -- AUTO_INCREMENT для таблицы `rings`
 --
-ALTER TABLE `rings`
-  MODIFY `newid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `jewelry`
+  MODIFY `newid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

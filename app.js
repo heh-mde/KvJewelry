@@ -14,6 +14,7 @@ const products = express.Router();
 let productId;
 let serverSalt;
 
+app.set('view engine', 'pug');
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -33,7 +34,11 @@ app.use(
 )
 
 app.get("/", function (req, res) {
-    res.send(pug.renderFile(__dirname + '/public/home.pug'));
+    if (req.session.user) {
+        res.render(__dirname + '/public/home', {isLogged: true, user: req.session.user});
+    } else {
+        res.render(__dirname + '/public/home', {isLogged: false});
+    }
 });
 
 app.get("/constructor", function (req, res) {
@@ -41,10 +46,10 @@ app.get("/constructor", function (req, res) {
 });
 
 app.get("/login", function (req, res) {
-    if (req.session.user_id) {
+    if (req.session.user) {
         res.redirect('/');
     } else {
-        res.send(pug.renderFile(__dirname + '/public/login.pug'));
+        res.render(__dirname + '/public/login.pug');
     }
 });
 
@@ -60,8 +65,9 @@ app.post("/login", async function (req, res) {
                 if (usrPass.length) {
                     let hash = usrPass[0]['HEX(PasswordHash)'];
                     if (hash.toLowerCase() + serverSalt + req.body.clientSalt === req.body.sha) {
-                        req.session.user = req.body.uname;
-                        req.session.user_id = usrPass[0].UserID;
+                        req.session.user = {};
+                        req.session.user.uname = req.body.uname;
+                        req.session.user.user_id = usrPass[0].UserID;
                         return res.json({isSuccessful: true});
                     } else {
                         res.json({isSuccessful: false});
@@ -70,7 +76,7 @@ app.post("/login", async function (req, res) {
                     res.json({isSuccessful: false});
                 }
             })
-            .catch(()=>res.sendStatus(500));
+            .catch(() => res.sendStatus(500));
     }
 });
 
@@ -113,11 +119,11 @@ app.get('/logout', function (req, res) {
 app.use("/products", products);
 
 products.get("", function (req, res) {
-    res.send(pug.renderFile(__dirname + `/public/productList.pug`));
+    res.render(__dirname + `/public/productList.pug`);
 });
 
 products.get("/:productId", function (req, res) {
-    res.send(pug.renderFile(__dirname + `/public/product.pug`));
+    res.render(__dirname + `/public/product.pug`);
 });
 
 app.get("/getOne", async function (req, res) {
@@ -127,7 +133,7 @@ app.get("/getOne", async function (req, res) {
 });
 
 app.get("/getSome", async function (req, res) {
-    let someProducts = await getProducts.getSome(req.query.productTypes, req.query.limit)
+    await getProducts.getSome(req.query.productTypes, req.query.limit)
         .then((someProducts) => res.send(someProducts))
         .catch(() => res.sendStatus(500));
 });
@@ -135,8 +141,8 @@ app.get("/getSome", async function (req, res) {
 app.post("/order", async function (req, res) {
     if (!req.body) return res.sendStatus(400);
     if (req.body.primary) {
-        if (req.session.user_id) {
-            await makeOrder.makeAuthorizedOrder(req.body.order, req.session.user_id)
+        if (req.session.user) {
+            await makeOrder.makeAuthorizedOrder(req.body.order, req.session.user.user_id)
                 .then(() => res.json({isSuccessful: true}))
                 .catch(() => res.sendStatus(500));
 
