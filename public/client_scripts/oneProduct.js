@@ -51,7 +51,7 @@ function loadProduct() {
     getOne(productId);
 }
 
-function addProduct(product, block) {
+function addProduct(product, block, isLogged, favList) {
     metal = getNamesByFilter("metal", product.metal);
     $(`.${block}`).append(`<div class="product" id="${product.vendorcode}">
             <a href="/products/${product.vendorcode}" class="product_link">
@@ -71,7 +71,16 @@ function addProduct(product, block) {
         </div>`);
     $(`#${product.vendorcode}.product`).find('.product_body').addClass(`${product.availability ? 'available' : 'unavailable'}`)
     let favBtn = $(`#${product.vendorcode}.product`).find('.product_favorite');
-    favBtn.on('click', () => addToFav(favBtn));
+    if (!isLogged) {
+        favBtn.wrap('<a href="/login"></a>');
+    } else {
+        for (let favItemCode of favList) {
+            if(favItemCode === product.vendorcode) {
+                $(`#${product.vendorcode}.product_favorite`).addClass('favorited');
+            }
+        }
+        favBtn.on('click', () => addToFav(favBtn, favList));
+    }
     if (product.stock != null) {
         $(`#${product.vendorcode}_price`).empty();
         $(`#${product.vendorcode}_price`).append(

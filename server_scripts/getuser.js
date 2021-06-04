@@ -11,7 +11,9 @@ async function getUserByLogin(login, email) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT Login FROM user WHERE Login = "${login}"`)
+    const a = await sqlconnection.query(`SELECT Login
+                                         FROM user
+                                         WHERE Login = "${login}"`)
         .then(result => {
             data = result[0];
         }).catch(function (err) {
@@ -38,7 +40,9 @@ async function getUserByEmail(email) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT Email FROM user WHERE Email = "${email.toLowerCase()}"`)
+    const a = await sqlconnection.query(`SELECT Email
+                                         FROM user
+                                         WHERE Email = "${email.toLowerCase()}"`)
         .then(result => {
             data = result[0];
         }).catch(function (err) {
@@ -65,7 +69,9 @@ async function getUserById(userId) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT Email FROM user WHERE UserID = "${userId}"`)
+    const a = await sqlconnection.query(`SELECT Email
+                                         FROM user
+                                         WHERE UserID = "${userId}"`)
         .then(result => {
             data = result[0];
         }).catch(function (err) {
@@ -92,7 +98,9 @@ async function getUserPassAndId(user) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT HEX(PasswordHash), UserID FROM user WHERE Login = "${user}"`)
+    const a = await sqlconnection.query(`SELECT HEX(PasswordHash), UserID
+                                         FROM user
+                                         WHERE Login = "${user}"`)
         .then(result => {
             data = result[0];
         }).catch(function (err) {
@@ -119,7 +127,8 @@ async function addUser(login, email, pass, name, surname, phone) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`INSERT INTO \`user\` (\`Email\`, \`Login\`, \`PasswordHash\`, \`LastName\`, \`FirstName\`, \`Phone\`) VALUES ('${email}', '${login}', UNHEX('${pass}'), '${name}', '${surname}', '${phone}');`)
+    await sqlconnection.query(`INSERT INTO user (Email, Login, PasswordHash, LastName, FirstName, Phone)
+                               VALUES ('${email}', '${login}', UNHEX('${pass}'), '${name}', '${surname}', '${phone}');`)
         .then(result => {
             data = result[0];
         }).catch(function (err) {
@@ -132,5 +141,6 @@ async function addUser(login, email, pass, name, surname, phone) {
 
     return data;
 }
+
 
 module.exports = {getUserByLogin, getUserByEmail, getUserById, getUserPassAndId, addUser};

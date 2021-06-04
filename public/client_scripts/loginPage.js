@@ -100,12 +100,12 @@ async function registerUser(event) {
         flag = 1;
     }
 
-    if (name[0].value.replace(/[ A-Za-z-А-Яа-я]/g, "") || name[0].value.length > 255) {
+    if (name[0].value.replace(/[ іїA-Za-z-А-Яа-я]/g, "") || name[0].value.length > 255) {
         name.after(`<div class="name_incorrect">Имя может содержать кирилицу либо латиницу, пробелы и символ -.</div>`);
         flag = 1;
     }
 
-    if (surname[0].value.replace(/[ A-Za-z-А-Яа-я]/g, "") || surname[0].value.length > 255) {
+    if (surname[0].value.replace(/[ іїA-Za-z-А-Яа-я]/g, "") || surname[0].value.length > 255) {
         surname.after(`<div class="surname_incorrect">Фамилия может содержать кирилицу либо латиницу, пробелы и символ -.</div>`);
         flag = 1;
     }
@@ -134,7 +134,7 @@ async function registerUser(event) {
         }).then(async function (res) {
             let r = await res.json();
             if (r.login_exists) {
-                uname.after(`<div class="name_warning">Имя ${uname} уже занято</div>`);
+                uname.after(`<div class="name_warning">Указанное имя уже занято</div>`);
             }
             if (r.mail_exists) {
                 email.after(`<div class="email_warning">Указанная почта уже занята</div>`);
