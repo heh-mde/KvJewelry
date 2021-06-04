@@ -1,4 +1,4 @@
-function addToCartFav(e) {
+function addToCart(e) {
     let cart = window.localStorage.getItem('cart');
     let product = e.target.id.split("_")[0];
     let id = e.target.id.split("_")[1];
