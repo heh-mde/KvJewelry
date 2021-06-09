@@ -8,7 +8,9 @@ function showPaginator(page, prod_num) {
 		$('.pagination_block').append(`<li class ="pagination_item"><button onclick="getPage(${page-1})">&laquo;</button></li>`);
 	}
 
-	let pagenum = Math.ceil(prod_num/sessionStorage.getItem("prodOnPage"))
+	const prodOnPage = 60;
+	const pagenum = Math.ceil(prod_num/prodOnPage);
+
 	for (let i =0; i<pagenum; i++){
 		if (i == page-1){
 			$('.pagination_block').append(`<li class ="pagination_item" id="on_hover"><button onclick="getPage(${i+1})">${i+1}</button></li>`);

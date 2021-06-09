@@ -1,4 +1,4 @@
-function displayDropdown(num) {
+function displayFilterDropdown(num) {
     var dropDown = document.getElementById(`dropDown${num}`);
     var icon = document.getElementById(`filter_icon${num}`);
     if (dropDown.classList.contains('showDrop')) {
