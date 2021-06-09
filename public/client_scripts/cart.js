@@ -1,7 +1,7 @@
 $(function () {
     getMaps();
     let modal = $('.cart');
-    let btn = $('.basket');
+    let btn = $('#basket');
     let closeModal = $('.close');
     btn.on('click', async function (e) {
         let contentContainer = $('.cart_content_container');
@@ -230,4 +230,15 @@ async function addElementToCart(vendorCode, productName, amount, container) {
             resolve(product[0].stock ? product[0].stock * amount : product[0].price * amount);
         });
     });
+}
+
+function addBasket(){
+    let cart = JSON.parse(window.localStorage.getItem('cart'));
+    let cartSize = 0;
+    for (const product in cart) {
+        for (const id in cart[product]) {
+            cartSize += cart[product][id];
+        }
+    }
+    $('.basket_counter').html(`${cartSize}`);
 }

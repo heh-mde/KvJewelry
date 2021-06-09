@@ -88,7 +88,7 @@ function addProduct(product, block, isLogged, favList) {
         $(`#${product.vendorcode}_old_price`).css({
             'display': 'inline-block',
             'color': 'black',
-            'font-size': '14px',
+            'font-size': '0.95vw',
             'text-decoration': 'line-through blue',
             'vertical-align': 'text-bottom',
             'font-family': '"Montserrat", sans-serif',

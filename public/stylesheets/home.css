@@ -20,8 +20,6 @@ hr {
 
 .banner_main_image {
     margin: 50px auto;
-    height: auto;
-    width: 100%;
     background: url(../images/design.png) no-repeat;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     object-fit: cover;
@@ -102,6 +100,10 @@ hr {
         font-size: 16px;
     }
 
+    .banner_main_image {
+        margin: 10px auto;
+    }
+
     .banner_main_link {
         border: 1px solid #232323;
         height: 35%;
@@ -162,14 +164,20 @@ hr {
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 345px;
+    height: 24vw;
     margin-top: 3px;
-    padding: 40px 0;
+    padding: 2.752vw 0;
 }
 
 @media all and (max-width: 1000px) {
     .new_list {
         height: 400px;
+    }
+}
+
+@media all and (max-width: 462px) {
+    .new_list {
+        height: 310px;
     }
 }
 

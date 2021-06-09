@@ -1,0 +1,132 @@
+<div class="header">
+    <div class="up-header">
+        <div class="link_home"><div class="home_link"><a class="logo" href="/"></a></div></div>
+        <div class="mobile_menu_block">
+            <div class="mobile_menu_items">
+                <a class="mobile_menu" href="#">
+                    <span class="menu_item"></span>
+                </a>
+            </div>
+        </div>
+        <nav class="nav">
+            <a href="/products" class="nav_button" style="text-decoration: none;">Все украшения</a>
+            <div class="nav_item" id="nav_rings">
+                <button class="nav_button" onclick="displayNavDropdown('rings')">
+                    <div class="nav_text">Кольца</div>
+                    <i id="nav_icon_rings" class="fa-angle-double-down"></i>
+                </button>
+                <div id="dropDown_rings" class="hideNavDrop">
+                    <a href="/products?&product=ring," class="mobile_menu_link">Каталог</a>
+                    <a href="/constructor" class="mobile_menu_link">Конструктор</a>
+                </div>
+            </div>
+            <div class="nav_item" id="product_filter">
+                <button class="nav_button" onclick="displayNavDropdown('bracelets')">
+                    <div class="nav_text">Браслеты</div>
+                    <i id="nav_icon_bracelets" class="fa-angle-double-down"></i>
+                </button>
+                <div id="dropDown_bracelets" class="hideNavDrop">
+                    <a href="/products?&product=bracelet," class="mobile_menu_link">Каталог</a>
+                    <a href="/constructor" class="mobile_menu_link">Конструктор</a>
+                </div>
+            </div>
+            <div class="nav_item" id="nav_chains">
+                <button class="nav_button" onclick="displayNavDropdown('chains')">
+                    <div class="nav_text">Цепочки</div>
+                    <i id="nav_icon_chains" class="fa-angle-double-down"></i>
+                </button>
+                <div id="dropDown_chains" class="hideNavDrop">
+                    <a href="/products?&product=chain," class="mobile_menu_link">Каталог</a>
+                    <a href="/constructor" class="mobile_menu_link">Конструктор</a>
+                </div>
+            </div>
+            <div class="nav_item" id="product_filter">
+                <button class="nav_button" onclick="displayNavDropdown('earrings')">
+                    <div class="nav_text">Серьги</div>
+                    <i id="nav_icon_earrings" class="fa-angle-double-down"></i>
+                </button>
+                <div id="dropDown_earrings" class="hideNavDrop">
+                    <a href="/products?&product=earring," class="mobile_menu_link">Каталог</a>
+                    <a href="/constructor" class="mobile_menu_link">Конструктор</a>
+                </div>
+            </div>
+            <div class="nav_item" id="product_filter">
+                <button class="nav_button" onclick="displayNavDropdown('signets')">
+                    <div class="nav_text">Печатки</div>
+                    <i id="nav_icon_signets" class="fa-angle-double-down"></i>
+                </button>
+                <div id="dropDown_signets" class="hideNavDrop">
+                    <a href="/products?&product=signet," class="mobile_menu_link">Каталог</a>
+                    <a href="/constructor" class="mobile_menu_link">Конструктор</a>
+                </div>
+            </div>
+        </nav>
+        <p class="brand_name">KvashaJew</p>
+        include user_panel.pug
+        <button onclick="" class="head_item" id="basket">
+            <div class="basket_counter"></div>
+        </button>
+        <script>addBasket()</script>
+        <form class="search">
+            <input class="search_input" type="text" placeholder="Найти нужный товар">
+            <button class="search_button" type="submit"></button>
+        </form>
+    </div>
+    <div class="down-header">
+        <div class="menu_button">
+            <a href="" class="menu_link">Кольца</a>
+            <div class="menu_selection">
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link1" href="/products?&product=ring,"> Каталог</a>
+                </div>
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link2" href="/constructor"> Конструктор</a>
+                </div>
+            </div>
+        </div>
+        <div class="menu_button">
+            <a href="" class="menu_link">Браслеты</a>
+            <div class="menu_selection">
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link1" href="/products?&product=bracelet,"> Каталог</a>
+                </div>
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link2" href="/constructor"> Конструктор</a>
+                </div>
+            </div>
+        </div>
+        <div class="menu_button">
+            <a href="" class="menu_link">Цепочки</a>
+            <div class="menu_selection">
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link1" href="/products?&product=chain,"> Каталог</a>
+                </div>
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link2" href="/constructor"> Конструктор</a>
+                </div>
+            </div>
+        </div>
+        <div class="menu_button">
+            <a href="" class="menu_link">Серьги</a>
+            <div class="menu_selection">
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link1" href="/products?&product=earring,"> Каталог</a>
+                </div>
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link2" href="/constructor"> Конструктор</a>
+                </div>
+            </div>
+        </div>
+        <div class="menu_button">
+            <a href="" class="menu_link">Печатки</a>
+            <div class="menu_selection">
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link1" href="/products?&product=signet,"> Каталог</a>
+                </div>
+                <div class="menu_selection_block">
+                    <a class="menu_selection_link2" href="/constructor"> Конструктор</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

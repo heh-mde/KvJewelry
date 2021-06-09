@@ -10,8 +10,9 @@
 	<script type="text/javascript" src="/client_scripts/paginator.js"></script>
 	<script type="text/javascript" src="/client_scripts/filters.js"></script>
 	<script type="text/javascript" src="/client_scripts/url.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 	<script type="text/javascript" src="/client_scripts/cart.js"></script>
+	<script type="text/javascript" src="/client_scripts/menu.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 	<link rel="stylesheet" href="/stylesheets/modal_cart.css">
 	<link rel="stylesheet" href="/stylesheets/productsBlock.css">
 	<link rel="stylesheet" href="/stylesheets/productList.css">
@@ -20,10 +21,10 @@
 </head>
 <body>
 	include modal_cart.html
-	include header.html
+	include header.pug
 	<div class="filters_block">
 		<div class="filter" id="product_filter">
-			<button class="filter_button" onclick="displayDropdown(1)">
+			<button class="filter_button" onclick="displayFilterDropdown(1)">
 				<div class="filter_text">Тип украшения</div>
 				<i id="filter_icon1" class="fa-angle-double-down"></i>
 			</button>
@@ -61,7 +62,7 @@
 			</div>
 		</div>
 		<div class="filter" id="sort_filter">
-			<button class="filter_button" onclick="displayDropdown(2)">
+			<button class="filter_button" onclick="displayFilterDropdown(2)">
 				<div class="filter_text">Сортировка</div>
 				<i id="filter_icon2" class="fa-angle-double-down"></i>
 			</button>
@@ -81,7 +82,7 @@
 			</div>
 		</div>
 		<div class="filter" id="metal_filter">
-			<button class="filter_button" onclick="displayDropdown(3)">
+			<button class="filter_button" onclick="displayFilterDropdown(3)">
 				<div class="filter_text">Металл</div>
 				<i id="filter_icon3" class="fa-angle-double-down"></i>
 			</button>

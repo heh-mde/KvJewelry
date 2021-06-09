@@ -88,16 +88,16 @@ async function show(page) {
         return 1;
     }
     products = sortProducts(products);
-    if ($(window).width() >= '1920') {
-        sessionStorage.setItem("prodOnPage", 60);
-    } else if ($(window).width() >= '1420') {
-        sessionStorage.setItem("prodOnPage", 50);
-    } else if ($(window).width() >= '1200') {
-        sessionStorage.setItem("prodOnPage", 32);
-    } else {
-        sessionStorage.setItem("prodOnPage", 21);
-    }
-    const prodOnPage = sessionStorage.getItem("prodOnPage");
+    // if ($(window).width() >= '1920') {
+    //     sessionStorage.setItem("prodOnPage", 60);
+    // } else if ($(window).width() >= '1420') {
+    //     sessionStorage.setItem("prodOnPage", 50);
+    // } else if ($(window).width() >= '1200') {
+    //     sessionStorage.setItem("prodOnPage", 32);
+    // } else {
+    //     sessionStorage.setItem("prodOnPage", 21);
+    // }
+    const prodOnPage = 60;
     let iter_end = page * prodOnPage;
     const page_num = Math.ceil(products.length / prodOnPage);
     if (page == page_num) {
