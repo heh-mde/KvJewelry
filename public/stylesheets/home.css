@@ -3,33 +3,10 @@
 }
 
 .home {
-    width: 1100px;
+    width: 80%;
+    height: auto;
     margin: auto;
     position: relative;
-}
-
-@media all and (max-width: 1200px) {
-    .home {
-        width: 900px;
-    }
-}
-
-@media all and (max-width: 992px) {
-    .home {
-        width: 750px;
-    }
-}
-
-@media all and (max-width: 768px) {
-    .home {
-        width: 550px;
-    }
-}
-
-@media all and (max-width: 575px) {
-    .home {
-        width: 312px;
-    }
 }
 
 hr {
@@ -41,41 +18,45 @@ hr {
     margin-bottom: 30px;
 }
 
-.banner_main {
-    position: relative;
+.banner_main_image {
     margin: 50px auto;
-    height: 530px;
+    height: auto;
+    width: 100%;
     background: url(../images/design.png) no-repeat;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-    background-size: cover;
-    background-position: 100% 10%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 50%;
+    background-size: 100%;
+}
+
+.banner_main_image p{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    margin-top: -0.625em;
+    font-size: 22px;
+    letter-spacing: .1em;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .banner_main_link {
     position: absolute;
-    top: 40%;
-    left: 13%;
+    top: 45%;
+    left: 10%;
     width: 38%;
-    min-height: 150px;
+    height: 27%;
     z-index: 1;
     color: #232323;
     background: transparent;
     border: 2px solid #232323;
-    font-size: 22px;
-    letter-spacing: .1em;
-    font-family: 'Montserrat', sans-serif;
-    padding: 30px;
-    padding-top: 60px;
     transition: .2s ease-in-out;
     cursor: pointer;
     text-decoration: none;
-}
-
-@media all and (max-width: 768px) {
-    .banner_main_link {
-        width: 60%;
-        min-width: 225px;
-    }
+    text-align: center;
 }
 
 .banner_main_link:before {
@@ -93,6 +74,53 @@ hr {
 
 .banner_main_link:hover:before {
     transform: translate(10px, 10px);
+}
+
+@media all and (max-width: 1200px) {
+    .banner_main_image p {
+        font-size: 19px;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    .home {
+        width: 95%;
+    }
+
+    .banner_main_link {
+        height: 35%;
+    }
+
+    .banner_main_image p {
+        font-size: 19px;
+    }
+}
+
+@media all and (max-width: 600px) {
+
+    .banner_main_image p {
+        font-size: 16px;
+    }
+
+    .banner_main_link {
+        border: 1px solid #232323;
+        height: 35%;
+    }
+
+    .banner_main_link:before {
+        top: 3px;
+        left: 3px;
+    }
+
+    .banner_main_link:hover:before {
+        transform: translate(5px, 5px);
+    }
+}
+
+@media all and (max-width: 400px) {
+    .banner_main_image p {
+        font-size: 11px;
+    }
 }
 
 .divider {
@@ -131,12 +159,18 @@ hr {
 }
 
 .new_list {
-    display: flex;
+    position: relative;
+    overflow:hidden;
     width: 100%;
     height: 305px;
     margin-top: 3px;
 }
 
+@media all and (max-width: 1000px) {
+    .new_list {
+        height: 400px;
+    }
+}
 /*
 .info_links {
     height: 530px;
@@ -144,8 +178,3 @@ hr {
     margin-bottom: 50px;
 }
  */
-
-.test{
-    display: flex;
-    flex-wrap: wrap;
-}

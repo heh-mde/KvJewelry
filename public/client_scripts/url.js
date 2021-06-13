@@ -1,7 +1,5 @@
-function getParam(param){
-    const defaultparam = {"page": "1", "sort": "0", "metal":"", 
-    "price":""};
-    let info = window.location.search
+function getParam(param, info=window.location.search){
+    const defaultparam = {"page": "1", "sort": "0", "metal":"", "price":"", "product":""};
     let param_value;
     if (info.includes(param)){
         let pagesplited = info.split(param);
@@ -32,20 +30,28 @@ function getWithoutParam(param){
     if (info == ""){
         noparam = "?" + noparam;
     }
+
     return noparam;
 }
 
-function getProductName(){
-    const pathname = window.location.pathname;
-    const product = pathname.slice(10);
-    return product;
+function getProductID(){
+    let pathname = window.location.pathname;
+    const id = pathname.split("/")[2];
+    return id;
 }
 
 function checkURL() {
     if (window.location.search != sessionStorage.getItem("params")){
-        show(Number(getParam("page")));
+        old_products = getParam("product");
+        new_products = getParam("product", sessionStorage.getItem("params"));
+        if (old_products != new_products){
+            getAll();
+        }
+        else{
+            show(Number(getParam("page")));
+        }
         checkFilter("metal");
-        
+        checkFilter("product");
         sessionStorage.setItem("params", window.location.search);
     }
 }

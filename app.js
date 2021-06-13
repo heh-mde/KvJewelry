@@ -72,7 +72,7 @@ app.post("/login", async function (req, res) {
             })
             .catch(()=>res.sendStatus(500));
     }
-})
+});
 
 app.post("/register", async function (req, res) {
     if (!req.body) return res.sendStatus(400);
@@ -99,7 +99,7 @@ app.post("/register", async function (req, res) {
                     ).catch(() => res.sendStatus(500));
             }
         ).catch(() => res.sendStatus(500));
-})
+});
 
 app.get('/logout', function (req, res) {
     req.session.destroy(function (err) {
@@ -108,40 +108,28 @@ app.get('/logout', function (req, res) {
         }
         res.redirect('/');
     });
-})
+});
 
 app.use("/products", products);
 
-products.get("/:productType/:id", function (req, res) {
-    let productType = req.params["productType"];
-    productId = req.params["productId"];
-    res.send(pug.renderFile(__dirname + `/public/product.pug`));
-});
-
-products.get("/:productType", function (req, res) {
-    let productType = req.params["productType"];
+products.get("", function (req, res) {
     res.send(pug.renderFile(__dirname + `/public/productList.pug`));
 });
 
-app.get("/getAll", async function (req, res) {
-    let productType = req.params["productType"];
-     await getProducts.getSome(req.query.productType, req.query.limit)
-        .then((allProducts) => res.send(allProducts))
-        .catch(() => res.sendStatus(500));
-});
-
-app.get("/getNew", async function (req, res) {
-    let productType = req.params["productType"];
-    await getProducts.getSome(req.query.productType, req.query.limit)
-        .then((newProduct) => res.send(newProduct))
-        .catch(() => res.sendStatus(500));
+products.get("/:productId", function (req, res) {
+    res.send(pug.renderFile(__dirname + `/public/product.pug`));
 });
 
 app.get("/getOne", async function (req, res) {
-    await getProducts.getOne(req.query.productType, req.query.vendorcode)
+    await getProducts.getOne(req.query.vendorcode)
         .then((oneProduct) => res.send(oneProduct))
         .catch(() => res.sendStatus(500));
+});
 
+app.get("/getSome", async function (req, res) {
+    let someProducts = await getProducts.getSome(req.query.productTypes, req.query.limit)
+        .then((someProducts) => res.send(someProducts))
+        .catch(() => res.sendStatus(500));
 });
 
 app.post("/order", async function (req, res) {
@@ -164,5 +152,3 @@ app.post("/order", async function (req, res) {
 
 
 app.listen(process.env.PORT || 63000);
-
-//91.194.250.154

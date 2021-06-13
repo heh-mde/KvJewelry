@@ -8,7 +8,6 @@ function showPaginator(page, prod_num) {
 		$('.pagination_block').append(`<li class ="pagination_item"><button onclick="getPage(${page-1})">&laquo;</button></li>`);
 	}
 
-	product = getProductName();
 	let pagenum = Math.ceil(prod_num/sessionStorage.getItem("prodOnPage"))
 	for (let i =0; i<pagenum; i++){
 		if (i == page-1){
@@ -27,8 +26,8 @@ function showPaginator(page, prod_num) {
 	}
 }
 
-function getPage(num, scroll=false) {
+function getPage(num) {
 	const params = getWithoutParam("page");
-	window.history.pushState("object or string", "Title", `/products/rings${params}page=${num}`);
+	window.history.pushState("object or string", "Title", `/products${params}page=${num}`);
 	$('body,html').animate({scrollTop: 220}, 400);
 }

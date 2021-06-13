@@ -41,6 +41,11 @@
 }
 
 .product_stock {
+    width: 50%;
+}
+
+.old_price {
+    width: 40%;
 }
 
 .product_info_block {
@@ -139,5 +144,82 @@
 
     .product:hover .product_basket {
         display: block;
+    }
+}
+
+.product {
+    width: 50%;
+}
+
+@media all and (max-width: 1000px) {
+    .product {
+        width: 50%;
+        height: 400px;
+        margin-bottom: 0px;
+        padding: 0px;
+    }
+
+    .product_body {
+        height: 100%;
+        width: 100%;
+    }
+
+    .product:hover .product_info_block {
+        display: none;
+    }
+
+    .product_price {
+        height: 50px;
+        line-height: 50px;
+        font-size: 25px;
+    }
+
+    .old_price {
+        width: 100%;
+    }
+
+    .product_stock {
+        font-size: 25px;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .product_image {
+        width: 90%;
+        padding: 0px;
+        margin: auto;
+    }
+
+    .product_name {
+        height: 80px;
+        font-size: 20px;
+    }
+
+    .product_availability:before {
+        right: 20px;
+    }
+}
+
+@media all and (min-width: 800px) {
+    .product {
+        width: 33%;
+    }
+}
+
+@media all and (min-width: 1200px) {
+    .product {
+        width: 25%;
+    }
+}
+
+@media all and (min-width: 1466px) {
+    .product {
+        width: 20%;
+    }
+}
+
+@media all and (min-width: 1920px) {
+    .product {
+        width: 16%;
     }
 }

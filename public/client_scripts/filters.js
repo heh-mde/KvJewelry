@@ -10,8 +10,8 @@ function displayDropdown(num) {
     }
 }
 
-function getPriceSlider(product){
-    let products = JSON.parse(sessionStorage.getItem(product));
+function getPriceSlider(){
+    let products = JSON.parse(sessionStorage.getItem("products"));
     let price;
     let max_price = 0;
     let min_price = 999999;
@@ -76,7 +76,7 @@ function changeFilter(id, filter){
     const pathname = window.location.pathname;
     current_filter = getParam(filter);
     without_filter = getWithoutParam(filter);
-    if (checkBox.checked){  
+    if (checkBox.checked){ 
         current_filter += id + ","
         window.history.pushState("object or string", "Title", `${pathname}${without_filter}${filter}=${current_filter}`);
     }
@@ -95,7 +95,7 @@ function changeFilter(id, filter){
 
 function checkFilter(filter){
     let current_filter = getParam(filter).split(",");
-    $('.filter_checkbox').prop('checked', false);
+    $(`.${filter}_checkbox`).prop('checked', false);
     for (i=0; i<current_filter.length-1;i++){
         $(`#${current_filter[i]}`).prop('checked', true);
     }
