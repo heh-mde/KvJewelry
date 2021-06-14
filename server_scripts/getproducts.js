@@ -63,7 +63,6 @@ async function getOne(vendorcode) {
         console.log(err)
     });
     return data;
-
 }
 
 module.exports = {getOne, getSome};

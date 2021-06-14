@@ -29,3 +29,7 @@ function addToCart(e) {
     }
     $('.basket_counter').html(`${cartSize}`);
 }
+
+function addToFav(btnPressed) {
+    btnPressed.toggleClass('favorited');
+}
