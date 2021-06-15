@@ -9,7 +9,7 @@ $(function () {
         contentContainer.html('')
         let cart = JSON.parse(window.localStorage.getItem('cart'));
         let total = 0;
-        if (Object.keys(cart).length !== 0 && cart) {
+        if (cart && Object.keys(cart).length !== 0) {
             $('.cart_content_container').append(`
             <div class="cart_product_title">
                 <div class="cart_product_image_container"></div>
@@ -153,12 +153,12 @@ function formCheck() {
     let call_back = $('.contact_call_back');
     let valid = 1;
 
-    if (name[0].value.replace(/[ A-Za-z-А-Яа-я]/g, "") || name[0].value.length > 255) {
+    if (name[0].value.replace(/[ іїA-Za-z-А-Яа-я]/g, "") || name[0].value.length > 255) {
         name.after(`<div class="name_incorrect">Имя может содержать кирилицу либо латиницу, пробелы и символ -.</div>`);
         valid = 0;
     }
 
-    if (surname[0].value.replace(/[ A-Za-z-А-Яа-я]/g, "") || surname[0].value.length > 255) {
+    if (surname[0].value.replace(/[ іїA-Za-z-А-Яа-я]/g, "") || surname[0].value.length > 255) {
         surname.after(`<div class="surname_incorrect">Фамилия может содержать кирилицу либо латиницу, пробелы и символ -.</div>`);
         valid = 0;
     }

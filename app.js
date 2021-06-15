@@ -4,6 +4,7 @@ const app = express();
 const getProducts = require("./server_scripts/getProducts.js");
 const getUser = require("./server_scripts/getuser.js");
 const makeOrder = require("./server_scripts/makeOrder.js");
+const favorites = require("./server_scripts/favorites.js");
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
@@ -137,6 +138,33 @@ app.get("/getSome", async function (req, res) {
         .then((someProducts) => res.send(someProducts))
         .catch(() => res.sendStatus(500));
 });
+
+app.get("/isLogged", function (req, res) {
+    res.json({isLogged: !!req.session.user});
+});
+
+app.get("/favorites", async function (req, res) {
+    await favorites.getFavorites(req.session.user.user_id).then((data) => {
+        let favList = [];
+        for (let obj of data) {
+            favList.push(obj.VendorCode);
+        }
+        res.json({data: favList});
+    }).catch(() => res.sendStatus(500));
+});
+
+app.post("/favorites", async function (req, res) {
+    if (req.body.isAdd) {
+        await favorites.addFavorite(req.session.user.user_id, req.body.vendorCode).then(() => {
+            res.json({isSuccessful: true});
+        }).catch(() => res.json({isSuccessful: false}));
+    } else {
+        await favorites.removeFavorite(req.session.user.user_id, req.body.vendorCode).then(() => {
+            res.json({isSuccessful: true});
+        }).catch(() => res.json({isSuccessful: false}));
+    }
+});
+
 
 app.post("/order", async function (req, res) {
     if (!req.body) return res.sendStatus(400);
