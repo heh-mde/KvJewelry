@@ -20,21 +20,21 @@ async function getSome(products, limit) {
 
     const product_list = products.split(',');
     products = ""
-    for (i = 0; i < product_list.length; i++){
+    for (i = 0; i < product_list.length; i++) {
         products += `'${product_list[i]}',`
     }
-    products = products.slice(0,-1);
+    products = products.slice(0, -1);
     let data;
-    const a = await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) ORDER BY date DESC LIMIT ${limit}`)
+    await sqlconnection.query(`SELECT *
+                               FROM jewelry
+                               WHERE type IN (${products})
+                               ORDER BY date DESC LIMIT ${limit}`)
         .then(result => {
             data = result[0];
-        }).catch(function (err) {
-            console.log(err);
-        });
+        })
+        .catch(err => console.log(err));
 
-    sqlconnection.end().catch(function (err) {
-        console.log(err)
-    });
+    sqlconnection.end().catch(err => console.log(err));
 
     return data;
 }
@@ -52,16 +52,16 @@ async function getOne(vendorcode) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT * FROM jewelry WHERE vendorcode = ${vendorcode};`)
+    await sqlconnection.query(`SELECT *
+                               FROM jewelry
+                               WHERE vendorcode = ${vendorcode};`)
         .then(result => {
             data = result[0];
-        }).catch(function (err) {
-            console.log(err)
-        });
+        })
+        .catch(err => console.log(err));
 
-    sqlconnection.end().catch(function (err) {
-        console.log(err)
-    });
+    sqlconnection.end().catch(err => console.log(err));
+
     return data;
 }
 

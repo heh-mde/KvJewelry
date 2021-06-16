@@ -104,7 +104,6 @@ async function show(page) {
         iter_end = products.length;
     } else if (page > page_num) {
         $('.product_block').empty();
-        ;
         $('.pagination_item').remove();
         $('.product_block').append(`<div class="no_products">Страница ${page} даного каталога не существует<div>`);
         return 1;

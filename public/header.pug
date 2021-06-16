@@ -62,7 +62,14 @@
             </div>
         </nav>
         <p class="brand_name">KvashaJew</p>
-        include user_panel.pug
+        if !isLogged
+            <a href="/login" class="head_item" id="profile">
+            <p style="margin:0px;float:right;">Войти</p>
+            </a>
+        else
+            <a href="/profile" class="head_item" id="profile">
+            <p style="margin:0px;float:right;max-width:10vh;overflow:hidden">#{user.uname}</p>
+            </a>
         <button onclick="" class="head_item" id="basket">
             <div class="basket_counter"></div>
         </button>

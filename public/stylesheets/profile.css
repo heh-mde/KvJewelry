@@ -1,0 +1,19 @@
+.page_content {
+    width: 80%;
+    margin: auto;
+}
+
+@media all and (max-width: 1000px) {
+    .page_content {
+        width: 95%;
+    }
+}
+
+.links_container {
+    margin: auto;
+    padding: 50px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    font-size: 32px;
+}

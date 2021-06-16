@@ -1,0 +1,24 @@
+.page_content {
+    width: 80%;
+    margin: auto;
+}
+
+.favorites_title {
+    text-align: center;
+    font-size: 32px;
+}
+
+.favorites_content{
+    margin: 75px 0 0 0;
+}
+
+.no_favorites {
+    text-align: center;
+    font-size: 30px;
+}
+
+@media all and (max-width: 1000px) {
+    .page_content {
+        width: 95%;
+    }
+}

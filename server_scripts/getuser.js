@@ -16,13 +16,10 @@ async function getUserByLogin(login, email) {
                                          WHERE Login = "${login}"`)
         .then(result => {
             data = result[0];
-        }).catch(function (err) {
-            console.log(err);
-        });
+        })
+        .catch(err => console.log(err));
 
-    sqlconnection.end().catch(function (err) {
-        console.log(err)
-    });
+    sqlconnection.end().catch(err => console.log(err));
 
     return data;
 }
@@ -40,18 +37,15 @@ async function getUserByEmail(email) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT Email
-                                         FROM user
-                                         WHERE Email = "${email.toLowerCase()}"`)
+    await sqlconnection.query(`SELECT Email
+                               FROM user
+                               WHERE Email = "${email.toLowerCase()}"`)
         .then(result => {
             data = result[0];
-        }).catch(function (err) {
-            console.log(err);
-        });
+        })
+        .catch(err => console.log(err));
 
-    sqlconnection.end().catch(function (err) {
-        console.log(err)
-    });
+    sqlconnection.end().catch(err => console.log(err));
 
     return data;
 }
@@ -69,18 +63,15 @@ async function getUserById(userId) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT Email
-                                         FROM user
-                                         WHERE UserID = "${userId}"`)
+    await sqlconnection.query(`SELECT Email, FirstName, LastName, Phone
+                               FROM user
+                               WHERE UserID = "${userId}"`)
         .then(result => {
             data = result[0];
-        }).catch(function (err) {
-            console.log(err);
-        });
+        })
+        .catch(err => console.log(err));
 
-    sqlconnection.end().catch(function (err) {
-        console.log(err)
-    });
+    sqlconnection.end().catch(err => console.log(err));
 
     return data;
 }
@@ -98,18 +89,15 @@ async function getUserPassAndId(user) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT HEX(PasswordHash), UserID
-                                         FROM user
-                                         WHERE Login = "${user}"`)
+    await sqlconnection.query(`SELECT HEX(PasswordHash), UserID
+                               FROM user
+                               WHERE Login = "${user}"`)
         .then(result => {
             data = result[0];
-        }).catch(function (err) {
-            console.log(err);
-        });
+        })
+        .catch(err => console.log(err));
 
-    sqlconnection.end().catch(function (err) {
-        console.log(err)
-    });
+    sqlconnection.end().catch(err => console.log(err));
 
     return data;
 }
@@ -131,13 +119,10 @@ async function addUser(login, email, pass, name, surname, phone) {
                                VALUES ('${email}', '${login}', UNHEX('${pass}'), '${name}', '${surname}', '${phone}');`)
         .then(result => {
             data = result[0];
-        }).catch(function (err) {
-            console.log(err);
-        });
+        })
+        .catch(err => console.log(err));
 
-    sqlconnection.end().catch(function (err) {
-        console.log(err)
-    });
+    sqlconnection.end().catch(err => console.log(err));
 
     return data;
 }
