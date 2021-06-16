@@ -58,7 +58,7 @@ async function loginUser(event) {
             if (!r.isSuccessful) {
                 pass.after(`<div class="login_warning">Неверное имя пользователя или пароль.</div>`)
             } else {
-                window.location.href = 'http://localhost:63000/'; //IMPORTANT TO CHANGE
+                window.location.href = 'https://kvjewelry.herokuapp.com/'; //IMPORTANT TO CHANGE
             }
         }).catch(function (err) {
             console.log(err);

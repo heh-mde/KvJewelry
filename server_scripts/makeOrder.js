@@ -2,14 +2,12 @@ const {getUserById} = require("./getuser");
 
 async function makeAuthorizedOrder(orderObject, userId) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     let msgInfo = {}
@@ -56,14 +54,12 @@ async function makeAuthorizedOrder(orderObject, userId) {
 
 async function makeUnauthorizedOrder(orderObject, userData) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     let msgInfo = {}

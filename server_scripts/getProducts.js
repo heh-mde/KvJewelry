@@ -8,14 +8,12 @@
 
 async function getSome(products, limit, search="") {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "kvjew",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b39c2afbce962e",
+        database: "heroku_05718451e33d4b5",
+        password: "7a5611a0"
     }).promise();
 
     let regex_search = ""
@@ -76,14 +74,12 @@ async function getSome(products, limit, search="") {
 
 async function getOne(vendorcode) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "kvjew",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b39c2afbce962e",
+        database: "heroku_05718451e33d4b5",
+        password: "7a5611a0"
     }).promise();
 
     let data;
