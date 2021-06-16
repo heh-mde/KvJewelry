@@ -47,7 +47,6 @@ async function getSome(products, limit, search="") {
                 regex_search += ").+" 
             }
         }
-        console.log(regex_search);
     }
     else{
         regex_search = ".+"
@@ -61,7 +60,7 @@ async function getSome(products, limit, search="") {
     products = products.slice(0, -1);
     let data;
 
-    await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) AND name RLIKE '${regex_search}' ORDER BY date DESC LIMIT ${limit}`)
+    await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) AND LOWER(name) RLIKE '${regex_search}' ORDER BY date DESC LIMIT ${limit}`)
         .then(result => {
             data = result[0];
         })

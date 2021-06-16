@@ -32,6 +32,12 @@ function getPriceSlider(){
         slider_values = [min_price, max_price];
     }
     else{
+        if (price_scope[0]<min_price) {
+            price_scope[0] = min_price;
+        }
+        if (price_scope[1]>max_price) {
+            price_scope[1] = max_price;
+        }
         slider_values = price_scope;
     }
     $("#price_slider").slider({range:true,min:min_price,max:max_price,values: slider_values,slide:function(event,ui){
