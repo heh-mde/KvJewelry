@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/client_scripts/storage.js"></script>
+    <script type="text/javascript" src="/client_scripts/url.js"></script>
+    <script type="text/javascript" src="/client_scripts/cart.js"></script>
+    <script type="text/javascript" src="/client_scripts/menu.js"></script>
+    <link rel="stylesheet" href="/stylesheets/modal_cart.css">
+    include header_imports.html
+</head>
+<body>
+    include modal_cart.html
+    include header.pug
+    <div class="page_content">
+        <div class="links_container">
+            <a href="/profile/favorites">Избранное</a>
+            <a href="/logout">Выйти из профиля</a>
+        </div>
+    </div>
+</body>
+</html>

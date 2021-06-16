@@ -8,12 +8,47 @@ const favorites = require("./server_scripts/favorites.js");
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const nodemailer = require("nodemailer");
 const redisStorage = require('connect-redis')(session);
 const redis = require('redis');
 const client = redis.createClient();
 const products = express.Router();
 let productId;
 let serverSalt;
+
+
+let transporter = nodemailer.createTransport({
+    host: "smtp.ukr.net",
+    port: 465,
+    secure: true,
+    auth: {
+        user: "kvjewelry@ukr.net",
+        pass: "Wq3rovfc5gXZxErF",
+    }
+});
+
+async function sendEmail(emailData) {
+    return new Promise(async (resolve, reject) => {
+        let info = await transporter.sendMail({
+            from: '"kvNotification" <kvjewelry@ukr.net>',
+            to: "kvjewelry@ukr.net",
+            subject: emailData.subject,
+            text: emailData.message
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        })
+
+        if (info.response.startsWith("250 OK")) {
+            resolve({isSuccessful: true});
+        } else {
+            reject({
+                isSuccessful: false,
+                response: info.response
+            });
+        }
+    })
+}
 
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + "/public"));
@@ -26,7 +61,7 @@ app.use(
             host: "localhost",
             port: 6379,
             client: client,
-            ttl: 260
+            ttl: 3600
         }),
         secret: 'Something secret idk irh134vmqcr241*(%#7846819 )8RCP9m2q329$& Q@V($&q29$&VQ@(EM XMc39',
         resave: true,
@@ -34,23 +69,27 @@ app.use(
     })
 )
 
-app.get("/", function (req, res) {
+function renderForCategories(req, res, file, loggedInObj, loggedOutObj) {
     if (req.session.user) {
-        res.render(__dirname + '/public/home', {isLogged: true, user: req.session.user});
+        res.render(__dirname + file, loggedInObj);
     } else {
-        res.render(__dirname + '/public/home', {isLogged: false});
+        res.render(__dirname + file, loggedOutObj);
     }
+}
+
+app.get("/", function (req, res) {
+    renderForCategories(req, res, '/public/home', {isLogged: true, user: req.session.user}, {isLogged: false});
 });
 
 app.get("/constructor", function (req, res) {
-    res.send("Ya pojiloy constructor");
+    res.send("Ya constructor");
 });
 
 app.get("/login", function (req, res) {
     if (req.session.user) {
         res.redirect('/');
     } else {
-        res.render(__dirname + '/public/login.pug');
+        res.render(__dirname + '/public/login.pug', {isLogged: false});
     }
 });
 
@@ -98,7 +137,7 @@ app.post("/register", async function (req, res) {
                             if (usrMail.length) {
                                 res.json({login_exists: false, mail_exists: true, created: false});
                             } else {
-                                let r = await getUser.addUser(req.body.uname, req.body.email, req.body.pass, req.body.name, req.body.surname, req.body.phone)
+                                await getUser.addUser(req.body.uname, req.body.email, req.body.pass, req.body.name, req.body.surname, req.body.phone)
                                     .then(() => res.json({created: true}))
                                     .catch(() => res.sendStatus(500));
                             }
@@ -119,49 +158,39 @@ app.get('/logout', function (req, res) {
 
 app.use("/products", products);
 
-products.get("", function (req, res) {
-    res.render(__dirname + `/public/productList.pug`);
-});
-
-products.get("/:productId", function (req, res) {
-    res.render(__dirname + `/public/product.pug`);
-});
-
-app.get("/getOne", async function (req, res) {
-    await getProducts.getOne(req.query.vendorcode)
-        .then((oneProduct) => res.send(oneProduct))
-        .catch(() => res.sendStatus(500));
-});
-
-app.get("/getSome", async function (req, res) {
-    await getProducts.getSome(req.query.productTypes, req.query.limit)
-        .then((someProducts) => res.send(someProducts))
-        .catch(() => res.sendStatus(500));
-});
-
 app.get("/isLogged", function (req, res) {
     res.json({isLogged: !!req.session.user});
 });
 
 app.get("/favorites", async function (req, res) {
-    await favorites.getFavorites(req.session.user.user_id).then((data) => {
-        let favList = [];
-        for (let obj of data) {
-            favList.push(obj.VendorCode);
-        }
-        res.json({data: favList});
-    }).catch(() => res.sendStatus(500));
+    await favorites.getFavorites(req.session.user.user_id)
+        .then((data) => {
+            let favList = [];
+            for (let obj of data) {
+                favList.push(obj.VendorCode);
+            }
+            res.json({data: favList});
+        })
+        .catch(() => res.sendStatus(500));
 });
 
 app.post("/favorites", async function (req, res) {
-    if (req.body.isAdd) {
-        await favorites.addFavorite(req.session.user.user_id, req.body.vendorCode).then(() => {
-            res.json({isSuccessful: true});
-        }).catch(() => res.json({isSuccessful: false}));
+    if (req.body.isDetailed) {
+        await favorites.getFavoritesDetailed(req.session.user.user_id)
+            .then((favList) => res.json({favList: favList}))
+            .catch(() => res.sendStatus(500));
+    } else if (req.body.isAdd) {
+        await favorites.addFavorite(req.session.user.user_id, req.body.vendorCode)
+            .then(() => {
+                res.json({isSuccessful: true});
+            })
+            .catch(() => res.json({isSuccessful: false}));
     } else {
-        await favorites.removeFavorite(req.session.user.user_id, req.body.vendorCode).then(() => {
-            res.json({isSuccessful: true});
-        }).catch(() => res.json({isSuccessful: false}));
+        await favorites.removeFavorite(req.session.user.user_id, req.body.vendorCode)
+            .then(() => {
+                res.json({isSuccessful: true});
+            })
+            .catch(() => res.json({isSuccessful: false}));
     }
 });
 
@@ -171,7 +200,14 @@ app.post("/order", async function (req, res) {
     if (req.body.primary) {
         if (req.session.user) {
             await makeOrder.makeAuthorizedOrder(req.body.order, req.session.user.user_id)
-                .then(() => res.json({isSuccessful: true}))
+                .then(async (msgInfo) => {
+                    await sendEmail(msgInfo)
+                        .then(() => res.json({isSuccessful: true}))
+                        .catch(err => {
+                            console.log(err);
+                            res.sendStatus(500);
+                        });
+                })
                 .catch(() => res.sendStatus(500));
 
         } else {
@@ -179,10 +215,57 @@ app.post("/order", async function (req, res) {
         }
     } else {
         await makeOrder.makeUnauthorizedOrder(req.body.order, req.body.data)
-            .then(() => res.json({isSuccessful: true}))
+            .then(async (msgInfo) => {
+                await sendEmail(msgInfo)
+                    .then(() => res.json({isSuccessful: true}))
+                    .catch(err => {
+                        console.log(err);
+                        res.sendStatus(500);
+                    });
+            })
             .catch(() => res.sendStatus(500));
     }
 });
 
+app.get("/profile", function (req, res) {
+    if (!req.session.user) {
+        res.redirect('/');
+    } else {
+        res.render(__dirname + '/public/profile.pug', {isLogged: true, user: req.session.user});
+    }
+})
+
+app.get("/profile/favorites", function (req, res) {
+    if (!req.session.user) {
+        res.redirect('/');
+    } else {
+        res.render(__dirname + '/public/favorites.pug', {isLogged: true, user: req.session.user});
+    }
+})
+
+app.use("/products", products);
+
+products.get("", function (req, res) {
+    renderForCategories(req, res, `/public/productList.pug`, {
+        isLogged: true,
+        user: req.session.user
+    }, {isLogged: false});
+});
+
+products.get("/:productId", function (req, res) {
+    renderForCategories(req, res, `/public/product.pug`, {isLogged: true, user: req.session.user}, {isLogged: false});
+});
+
+app.get("/getOne", async function (req, res) {
+    await getProducts.getOne(req.query.vendorcode)
+        .then((oneProduct) => res.send(oneProduct))
+        .catch(() => res.sendStatus(500));
+});
+
+app.get("/getSome", async function (req, res) {
+    await getProducts.getSome(req.query.productTypes, req.query.limit, req.query.search)
+        .then((someProducts) => res.send(someProducts))
+        .catch(() => res.sendStatus(500));
+});
 
 app.listen(process.env.PORT || 63000);

@@ -3,13 +3,15 @@ function getAll(limit = 1000) {
     if (productTypes == "") {
         productTypes = "ring,bracelet,chain,earring,signet";
     }
-    let page = Number(getParam("page"));
+    const page = Number(getParam("page"));
     if (!Number.isInteger(page)) {
         $('.product_block').append(`<div class="no_products">Страница каталога указана некоректно ("${getParam("page")}")<div>`);
         return 1;
     }
-    //window.history.pushState("object or string", "Title", `/products/${product}?page=1&sort=0&metall=0&price=500-50000`);
-    $.get('/getSome', {productTypes: productTypes, limit: limit}, function (products) {
+
+    const search = getParam("search");
+
+    $.get('/getSome', {productTypes: productTypes, limit: limit, search: search}, function (products) {
         if (products == "") {
             $('.product_block').empty();
             $('.pagination_item').remove();
@@ -97,14 +99,13 @@ async function show(page) {
     // } else {
     //     sessionStorage.setItem("prodOnPage", 21);
     // }
-    const prodOnPage = 60;
+    const prodOnPage = 50;
     let iter_end = page * prodOnPage;
     const page_num = Math.ceil(products.length / prodOnPage);
     if (page == page_num) {
         iter_end = products.length;
     } else if (page > page_num) {
         $('.product_block').empty();
-        ;
         $('.pagination_item').remove();
         $('.product_block').append(`<div class="no_products">Страница ${page} даного каталога не существует<div>`);
         return 1;

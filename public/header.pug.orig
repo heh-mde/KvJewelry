@@ -62,6 +62,7 @@
             </div>
         </nav>
         <p class="brand_name">KvashaJew</p>
+        include user_panel.pug
         if !isLogged
             <a href="/login" class="head_item" id="profile">
             <p style="margin:0px;float:right;">Войти</p>
@@ -74,8 +75,8 @@
             <div class="basket_counter"></div>
         </button>
         <script>addBasket()</script>
-        <form class="search" id="search_form" onsubmit="event.preventDefault();searchProducts()">
-            <input class="search_input" id="search_input" type="text" placeholder="Найти нужный товар">
+        <form class="search">
+            <input class="search_input" type="text" placeholder="Найти нужный товар">
             <button class="search_button" type="submit"></button>
         </form>
     </div>

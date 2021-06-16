@@ -3,6 +3,7 @@
     width: 75%;
     margin: auto;
     margin-top: 3px;
+    min-height: 400px;
 }
 
 .filters_block {
@@ -33,15 +34,6 @@
 .filter_text {
     display: inline-block;
     font-size: 1.3vw;
-}
-
-i {
-    display: inline-block;
-    font-family: FontAwesome;
-    font-style: normal;
-    line-height: 1;
-    margin-left: 5px;
-    font-size: 15px;
 }
 
 #sort_filter {

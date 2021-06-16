@@ -6,7 +6,7 @@
  *@return {Array} List of products
  */
 
-async function getSome(products, limit) {
+async function getSome(products, limit, search="") {
     const sql = require("mysql2");
     const fs = require('fs');
     let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
@@ -18,23 +18,58 @@ async function getSome(products, limit) {
         password: db_password
     }).promise();
 
+    let regex_search = ""
+    search = decodeURI(search);
+    if (search != "") {
+        const all_types_list = [["золот","серебр","платин","узор"], 
+                                ["обруч", "помолв"], 
+                                ["кольц", "браслет", "цепоч", "серьг", "печат"],
+                                ["дорож", "украш", "комбин"], 
+                                ["брил", "цирк", "фианит", "алмаз", "аметист"]];
+
+        search = search.toLowerCase();
+        const search_keys = search.split(" ");
+        let types_list = [[],[],[],[],[]]
+        for (i = 0; i < all_types_list.length; i++) {
+            for (j = 0; j < all_types_list[i].length; j++){
+                for (k = 0; k < search_keys.length; k ++){
+                    if (search_keys[k].includes(all_types_list[i][j])){
+                        types_list[i].push(all_types_list[i][j]);
+                    }
+                }
+            }
+        }
+        for (i = 0; i < types_list.length; i++) {
+            if (types_list[i].length != 0) {
+                regex_search += "("
+                for (j = 0; j < types_list[i].length; j++){
+                    regex_search += types_list[i][j] + "|";
+                }
+                regex_search = regex_search.slice(0,-1);
+                regex_search += ").+" 
+            }
+        }
+        console.log(regex_search);
+    }
+    else{
+        regex_search = ".+"
+    }
+
     const product_list = products.split(',');
     products = ""
-    for (i = 0; i < product_list.length; i++){
+    for (i = 0; i < product_list.length; i++) {
         products += `'${product_list[i]}',`
     }
-    products = products.slice(0,-1);
+    products = products.slice(0, -1);
     let data;
-    const a = await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) ORDER BY date DESC LIMIT ${limit}`)
+
+    await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) AND name RLIKE '${regex_search}' ORDER BY date DESC LIMIT ${limit}`)
         .then(result => {
             data = result[0];
-        }).catch(function (err) {
-            console.log(err);
-        });
+        })
+        .catch(err => console.log(err));
 
-    sqlconnection.end().catch(function (err) {
-        console.log(err)
-    });
+    sqlconnection.end().catch(err => console.log(err));
 
     return data;
 }
@@ -52,16 +87,16 @@ async function getOne(vendorcode) {
     }).promise();
 
     let data;
-    const a = await sqlconnection.query(`SELECT * FROM jewelry WHERE vendorcode = ${vendorcode};`)
+    await sqlconnection.query(`SELECT *
+                               FROM jewelry
+                               WHERE vendorcode = ${vendorcode};`)
         .then(result => {
             data = result[0];
-        }).catch(function (err) {
-            console.log(err)
-        });
+        })
+        .catch(err => console.log(err));
 
-    sqlconnection.end().catch(function (err) {
-        console.log(err)
-    });
+    sqlconnection.end().catch(err => console.log(err));
+
     return data;
 }
 

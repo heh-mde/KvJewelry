@@ -1,5 +1,5 @@
 function getParam(param, info=window.location.search){
-    const defaultparam = {"page": "1", "sort": "0", "metal":"", "price":"", "product":""};
+    const defaultparam = {"page": "1", "sort": "0", "metal":"", "price":"", "product":"", "search":""};
     let param_value;
     if (info.includes(param)){
         let pagesplited = info.split(param);

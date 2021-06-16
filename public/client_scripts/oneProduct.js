@@ -1,4 +1,4 @@
-async function getOne(vendorcode) {
+function getOne(vendorcode, isLogged, favList) {
     $.get('/getOne', {vendorcode: vendorcode}, function (products) {
         product = products[0];
         metal = getNamesByFilter("metal", product.metal);
@@ -15,11 +15,28 @@ async function getOne(vendorcode) {
                             <p class="product_info">Метал:  ${metal}</p>
                         </div>
                         <div class="price"></div>
-                        <div class="button_container">
-                            <button onclick="" id="${product}_${product.vendorcode}" class="product_basket">Добавить в корзину</button>
+                        <div class="buttons_container">
+                            <button onclick="" id="${product.vendorcode}" class="product_favorite"></button>
                         </div>
                     </div>
                 </div>`);
+        if (product.availability) {
+            $('.buttons_container').append(`<button onclick="" id="${product.type}_${product.vendorcode}" class="product_basket">Добавить в корзину</button>`);
+        } else {
+            $('.buttons_container').append('<div class="out_of_stock">Нет в наличии</div>');
+        }
+        let favBtn = $('.product_favorite');
+        if (!isLogged) {
+            favBtn.wrap('<a href="/login"></a>');
+            favBtn.css({'height': '100%'});
+        } else {
+            for (let favItemCode of favList) {
+                if (favItemCode === product.vendorcode) {
+                    $(`#${product.vendorcode}.product_favorite`).addClass('favorited');
+                }
+            }
+            favBtn.on('click', () => addToFav(favBtn, favList));
+        }
         if (product.stock != null) {
             let price = $(`.price`)
             price.append(`<div class="product_price">${product.price} грн</div>`);
@@ -45,10 +62,37 @@ async function getOne(vendorcode) {
     });
 }
 
-function loadProduct() {
-    let url = window.location.href;
+async function loadProduct() {
     const productId = getProductID();
-    getOne(productId);
+    await fetch(`/isLogged`, {
+        method: 'GET'
+    }).then(async (res) => {
+        await res.json().then(async (data) => {
+            if (data.isLogged) {
+                await fetch(`/favorites`, {
+                    method: 'GET'
+                }).then(async (res) => {
+                    await res.json().then((data) => {
+                        getOne(productId, true, data.data);
+                    }).catch((err) => {
+                        console.log(err);
+                        getOne(productId, true, []);
+                    })
+                }).catch((err) => {
+                    console.log(err);
+                    getOne(productId, true, []);
+                })
+            } else {
+                getOne(productId, false);
+            }
+        }).catch((err) => {
+            console.log(err);
+            getOne(productId, false);
+        })
+    }).catch((err) => {
+        console.log(err);
+        getOne(productId, false);
+    });
 }
 
 function addProduct(product, block, isLogged, favList) {
@@ -66,16 +110,18 @@ function addProduct(product, block, isLogged, favList) {
                     <div class="product_name">${product.name}</div>
                 </div>
             </a>
-            <button onclick="" id="${product.type}_${product.vendorcode}" class="product_basket"></button>
             <button onclick="" id="${product.vendorcode}" class="product_favorite"></button>
         </div>`);
+    if (product.availability) {
+        $(`#${product.vendorcode}.product`).find('.product_favorite').before(`<button onclick="" id="${product.type}_${product.vendorcode}" class="product_basket"></button>`);
+    }
     $(`#${product.vendorcode}.product`).find('.product_body').addClass(`${product.availability ? 'available' : 'unavailable'}`)
     let favBtn = $(`#${product.vendorcode}.product`).find('.product_favorite');
     if (!isLogged) {
         favBtn.wrap('<a href="/login"></a>');
     } else {
         for (let favItemCode of favList) {
-            if(favItemCode === product.vendorcode) {
+            if (favItemCode === product.vendorcode) {
                 $(`#${product.vendorcode}.product_favorite`).addClass('favorited');
             }
         }

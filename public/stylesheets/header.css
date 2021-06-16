@@ -11,6 +11,15 @@ a {
     color: #000000;
 }
 
+i {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    line-height: 1;
+    margin-left: 5px;
+    font-size: 15px;
+}
+
 button:focus {
     outline: none;
 }
