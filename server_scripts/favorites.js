@@ -1,13 +1,11 @@
 async function getFavorites(user_id) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     let data;
@@ -31,14 +29,12 @@ async function getFavorites(user_id) {
 
 async function addFavorite(user_id, vendorCode) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     await sqlconnection.query(`INSERT INTO favorites (VendorCode, CustomerID)
@@ -54,14 +50,12 @@ async function addFavorite(user_id, vendorCode) {
 
 async function removeFavorite(user_id, vendorCode) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     await sqlconnection.query(`DELETE
@@ -79,21 +73,19 @@ async function removeFavorite(user_id, vendorCode) {
 
 async function getFavoritesDetailed(user_id) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     const sqlconnection2 = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "kvjew",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b39c2afbce962e",
+        database: "heroku_05718451e33d4b5",
+        password: "7a5611a0"
     }).promise();
 
     let data = [];

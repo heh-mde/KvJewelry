@@ -11,7 +11,7 @@ const session = require('express-session');
 const nodemailer = require("nodemailer");
 const redisStorage = require('connect-redis')(session);
 const redis = require('redis');
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_URL);
 const products = express.Router();
 let productId;
 let serverSalt;
@@ -58,10 +58,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(
     session({
         store: new redisStorage({
-            host: "localhost",
-            port: 6379,
+            host: "ec2-63-33-10-171.eu-west-1.compute.amazonaws.com",
+            port: 18860,
             client: client,
-            ttl: 3600
+            ttl: 120
         }),
         secret: 'Something secret idk irh134vmqcr241*(%#7846819 )8RCP9m2q329$& Q@V($&q29$&VQ@(EM XMc39',
         resave: true,

@@ -26,8 +26,8 @@
     height: 100%;
     width: 100%;
     border: 0.3vh solid #cea47b;
-    border-radius: 5px;
-    font-size: 20px;
+    border-radius: 0.344vw;
+    font-size: 1.3vw;
     background-color: #ffe3c4;
 }
 
@@ -41,30 +41,31 @@
 
 .filter_block {
     width: 100%;
-    height: 40px;
+    height: 2.752vw;
     background: none;
     border: none;
-    border-top: 1px solid #bfbdbb;
+    border-top: 0.0688vw solid #bfbdbb;
 }
 
 .checkbox_block {
     margin: auto;
-    width: 80px;
+    width: 5.504vw;
 }
 
 .product_checkbox, .metal_checkbox {
-    width: 17px;
-    height: 17px;
+    width: 1.17vw;
+    height: 1.17vw;
     position: absolute;
     left: 10%;
-    margin-top: 10px;
+    margin-top: 0.688vw;
 }
 
 .filter_block_text {
     position: absolute;
     left: 10%;
-    margin-left: 30px;
-    margin-top: 10px;
+    /*30px*/
+    margin-left: 2.064vw;
+    margin-top: 0.688vw;
 }
 
 #price_form_block {
@@ -165,6 +166,12 @@
     border-color: #f6a828;
 }
 
+@media all and (min-width: 1000px) {
+    .filter_block{
+        font-size: 1.08vw;
+    }
+}
+
 @media all and (max-width: 1000px) {
     .product_block {
         width: 100%;
@@ -173,11 +180,28 @@
     .filters_block {
         width: 100%;
         display: flex;
+        font-size: 16px;
     }
 
     .filter {
         width: 30%;
         height: 70px;
+    }
+
+    .filter_block {
+        height: 30px;
+    }
+
+    .metal_checkbox, .product_checkbox {
+        margin-top: 10px;
+        width: 30px;
+        height: 15px;
+    }
+
+    .filter_block_text {
+        left: 25%;
+        margin-top: 8.5px;
+        margin-left: 0px;
     }
 
     .filter_text{

@@ -1,13 +1,11 @@
 async function getUserByLogin(login, email) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     let data;
@@ -26,14 +24,12 @@ async function getUserByLogin(login, email) {
 
 async function getUserByEmail(email) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     let data;
@@ -52,14 +48,12 @@ async function getUserByEmail(email) {
 
 async function getUserById(userId) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     let data;
@@ -78,14 +72,12 @@ async function getUserById(userId) {
 
 async function getUserPassAndId(user) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     let data;
@@ -104,14 +96,12 @@ async function getUserPassAndId(user) {
 
 async function addUser(login, email, pass, name, surname, phone) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "userdb",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b194910a8a3dea",
+        database: "heroku_b667ccd8940ecf1",
+        password: "ee9ca0fd"
     }).promise();
 
     let data;

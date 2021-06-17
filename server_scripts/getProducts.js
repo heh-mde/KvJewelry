@@ -8,14 +8,12 @@
 
 async function getSome(products, limit, search="") {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "kvjew",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b39c2afbce962e",
+        database: "heroku_05718451e33d4b5",
+        password: "7a5611a0"
     }).promise();
 
     let regex_search = ""
@@ -49,7 +47,6 @@ async function getSome(products, limit, search="") {
                 regex_search += ").+" 
             }
         }
-        console.log(regex_search);
     }
     else{
         regex_search = ".+"
@@ -63,7 +60,7 @@ async function getSome(products, limit, search="") {
     products = products.slice(0, -1);
     let data;
 
-    await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) AND name RLIKE '${regex_search}' ORDER BY date DESC LIMIT ${limit}`)
+    await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) AND LOWER(name) RLIKE '${regex_search}' ORDER BY date DESC LIMIT ${limit}`)
         .then(result => {
             data = result[0];
         })
@@ -76,14 +73,12 @@ async function getSome(products, limit, search="") {
 
 async function getOne(vendorcode) {
     const sql = require("mysql2");
-    const fs = require('fs');
-    let db_password = fs.readFileSync(__dirname + '/password.txt', "utf8");
 
     const sqlconnection = sql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "kvjew",
-        password: db_password
+        host: "eu-cdbr-west-01.cleardb.com",
+        user: "b39c2afbce962e",
+        database: "heroku_05718451e33d4b5",
+        password: "7a5611a0"
     }).promise();
 
     let data;

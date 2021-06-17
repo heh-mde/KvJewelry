@@ -60,6 +60,7 @@
 
 .old_price {
     width: 40%;
+    font-size: 0.95vw;
 }
 
 .product_info_block {
@@ -96,7 +97,7 @@
     font-family: FontAwesome;
     color: green;
     content: "\f058";
-    font-size: 17px;
+    font-size: 2vh;
     z-index: 5;
 }
 
@@ -241,6 +242,7 @@
 
     .old_price {
         width: 100%;
+        font-size: 17px;
     }
 
     .product_stock {

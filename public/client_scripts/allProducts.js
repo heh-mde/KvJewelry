@@ -16,6 +16,7 @@ function getAll(limit = 1000) {
             $('.product_block').empty();
             $('.pagination_item').remove();
             $('.product_block').append(`<div class="no_products">Нет товара<div>`);
+            sessionStorage.setItem("products", "");
         } else {
             sessionStorage.setItem("products", JSON.stringify(products));
         }
@@ -79,7 +80,11 @@ function getNew() {
 
 async function show(page) {
     highlightFilter("sort");
-    let products = JSON.parse(sessionStorage.getItem("products"));
+    const products_string = sessionStorage.getItem("products");
+    if (products_string == "") {
+        return 1;
+    }
+    let products = JSON.parse(products_string);
     products = filterProducts(products, "metal");
     products = filterProductsPrice(products);
     if (products.length == 0) {
