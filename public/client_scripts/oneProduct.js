@@ -42,7 +42,7 @@ function getOne(vendorcode, isLogged, favList) {
             price.append(`<div class="product_price">${product.price} грн</div>`);
             price.append(`<div class="product_discounted_price">${product.stock} грн</div>`);
             $(`.product_price`).css({
-                'text-decoration': 'line-through red 2px',
+                'text-decoration': 'line-through blue 2px',
                 'padding': '10px 0 20px 20px',
                 'font-size': '26px'
             })

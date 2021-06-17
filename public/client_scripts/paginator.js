@@ -45,7 +45,7 @@ function getPage(num, scroll = true) {
     window.history.pushState("object or string", "Title", `/products?${params}&page=${num}`);
     if (scroll) {
         if (window.innerWidth >= 1230) {
-            $('body,html').animate({scrollTop: $('.header').outerHeight() + $('.filters_block').outerHeight()}, 800);
+            $('body,html').animate({scrollTop: 220}, 400);
         }
     }
 }
