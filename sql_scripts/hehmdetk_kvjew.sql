@@ -27,6 +27,8 @@ SET time_zone = "+00:00";
 -- Структура таблицы `jewelry`
 --
 
+use heroku_05718451e33d4b5;
+
 CREATE TABLE `jewelry` (
   `newid` int(10) UNSIGNED NOT NULL PRIMARY KEY,
   `type` varchar(15) NOT NULL,
@@ -54,25 +56,8 @@ INSERT INTO `jewelry` (`newid`, `type`, `vendorcode`, `name`, `price`, `stock`, 
 (11, 'ring', 710, 'Серебряное обручальное кольцо', 770, NULL, 1, 9, 'silver', '710.png'),
 (12, 'ring', 890, 'Платиновая срака', 1200, NULL, 1, 9, 'platin', '710.png');
 
---
--- Индексы сохранённых таблиц
---
-
---
--- Индексы таблицы `rings`
---
 ALTER TABLE `jewelry`
-  ADD PRIMARY KEY (`newid`);
-
---
--- AUTO_INCREMENT для сохранённых таблиц
---
-
---
--- AUTO_INCREMENT для таблицы `rings`
---
-ALTER TABLE `jewelry`
-  MODIFY `newid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `newid` int(15) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

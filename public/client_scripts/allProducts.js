@@ -170,16 +170,23 @@ function sortProducts(products) {
         case 0:
             break;
         case 1:
+            if (getParam("search") != ""){
+                products.sort(function (a, b) {
+                    return new Date(b.date) - new Date(a.date);
+                });
+            }
+            break;
+        case 2:
             products.sort(function (a, b) {
                 return b.stock - a.stock;
             });
             break;
-        case 2:
+        case 3:
             products.sort(function (a, b) {
                 return b.availability - a.availability;
             });
             break;
-        case 3:
+        case 4:
             products.sort(function (a, b) {
                 if (a.stock != null) {
                     a = a.stock;
@@ -194,7 +201,7 @@ function sortProducts(products) {
                 return b - a;
             });
             break;
-        case 4:
+        case 5:
             products.sort(function (a, b) {
                 if (a.stock != null) {
                     a = a.stock;

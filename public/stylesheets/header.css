@@ -103,9 +103,6 @@ button:focus {
     .mobile_menu{
         margin-left: 5px;
     }
-
-    .search_button {
-    }
 }
 
 @media all and (max-width: 515px) {
@@ -337,25 +334,29 @@ button:focus {
 }
 
 @media all and (min-width: 1230px) {
-    .menu_button{
+    .menu_button {
         display: table-cell;
     }
 
-    .up-header{
+    .up-header {
         height: 20vh;
     }
 
-    #profile p{
+    #profile p {
         font-size: 1.15vw
     }
 
-    .header{
+    .header {
         width: 80%;
     }
 
-    .down-header{
+    .down-header {
         padding: 20px 0;
         width: 84%;    
+    }
+
+    .search_button {
+        font-size: 1.2vw;
     }
 }
 
@@ -426,6 +427,10 @@ button:focus {
         font-size: 16px;
         height: 100%;
         width: 100%;
+    }
+
+    .search_button {
+        font-size: 14px;
     }
 
     .search_input:focus{

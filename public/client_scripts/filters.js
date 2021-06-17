@@ -67,15 +67,13 @@ function filterPrice() {
     const pathname = window.location.pathname;
     const min = $("#price_min").val();
     const max = $("#price_max").val();
-    window.history.pushState("object or string", "Title", `${pathname}${without_price}price=${min}-${max}`);
-    getPage(1);
+    window.history.pushState("object or string", "Title", `${pathname}?${without_price}&price=${min}-${max}`);
 }
 
 function changeSort(num) {
     without_sort = getWithoutParam("sort");
     const pathname = window.location.pathname;
-    window.history.pushState("object or string", "Title", `${pathname}${without_sort}sort=${num}`);
-    getPage(1);
+    window.history.pushState("object or string", "Title", `${pathname}?${without_sort}&sort=${num}`);
 }
 
 function changeFilter(id, filter) {
@@ -85,6 +83,7 @@ function changeFilter(id, filter) {
     without_filter = getWithoutParam(filter);
     if (checkBox.checked) {
         current_filter += id + ","
+<<<<<<< Updated upstream
         window.history.pushState("object or string", "Title", `${pathname}${without_filter}${filter}=${current_filter}`);
     } else {
         current_filter = current_filter.replace(id + ',', '');
@@ -92,10 +91,20 @@ function changeFilter(id, filter) {
             current_filter = filter + "=" + current_filter;
         } else {
             without_filter = without_filter.slice(0, -1);
-        }
-        window.history.pushState("object or string", "Title", `${pathname}${without_filter}${current_filter}`);
+=======
+        window.history.pushState("object or string", "Title", `${pathname}?${without_filter}&${filter}=${current_filter}`);
     }
-    getPage(1);
+    else{
+        current_filter = current_filter.replace(id+',', '');
+        if (current_filter != ""){
+            current_filter = '&' + filter + "=" + current_filter;
+        }
+        else{
+            without_filter = without_filter.slice(0,-1);
+>>>>>>> Stashed changes
+        }
+        window.history.pushState("object or string", "Title", `${pathname}?${without_filter}${current_filter}`);
+    }
 }
 
 function checkFilter(filter) {

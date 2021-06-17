@@ -1,5 +1,5 @@
 function getParam(param, info=window.location.search){
-    const defaultparam = {"page": "1", "sort": "0", "metal":"", "price":"", "product":"", "search":""};
+    const defaultparam = {"page": "1", "sort": "1", "metal":"", "price":"", "product":"", "search":""};
     let param_value;
     if (info.includes(param)){
         let pagesplited = info.split(param);
@@ -13,22 +13,23 @@ function getParam(param, info=window.location.search){
 }
 
 function getWithoutParam(param){
-    let info = window.location.search
-    let noparam = info + "&";
+    let info = window.location.search.replace('?','');
+    if (param != "page") {
+       info = getWithoutParam("page");
+    }
+    let noparam = info;
+
     if (info.includes(param)){
         let pagesplited = info.split(param);
-        const with_param = pagesplited[1].split('&');
-        let after_param = with_param[1];
+        let after_param = pagesplited[1].split('&')[1];
+        const before_param = pagesplited[0].slice(0,-1);
         if (after_param === undefined){
             after_param = "";
         }
-        else{
+        else if (before_param != "?"){
             after_param = "&" + after_param;
         }
-        noparam = pagesplited[0].slice(0,-1) + after_param + "&";
-    }
-    if (info == ""){
-        noparam = "?" + noparam;
+        noparam = before_param + after_param;
     }
 
     return noparam;

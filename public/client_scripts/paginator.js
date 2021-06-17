@@ -42,7 +42,7 @@ function showPaginator(page, prod_num) {
 
 function getPage(num, scroll = true) {
     const params = getWithoutParam("page");
-    window.history.pushState("object or string", "Title", `/products${params}page=${num}`);
+    window.history.pushState("object or string", "Title", `/products?${params}&page=${num}`);
     if (scroll) {
         if (window.innerWidth >= 1230) {
             $('body,html').animate({scrollTop: $('.header').outerHeight() + $('.filters_block').outerHeight()}, 800);

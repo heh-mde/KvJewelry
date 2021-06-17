@@ -131,10 +131,10 @@
 .product_favorite {
     display: none;
     position: absolute;
-    bottom: 5px;
+    bottom: 0.344vw;
     right: 0;
-    width: 26px;
-    height: 26px;
+    width: 1.7888vw;
+    height: 1.7888vw;
     border: none;
     background: none;
     cursor: pointer;
@@ -145,7 +145,7 @@
     content: "\f006";
     font-family: FontAwesome;
     z-index: 2;
-    font-size: 16px;
+    font-size: 1.2vw;
     bottom: 0px;
     left: 0px;
     color: black;
@@ -156,7 +156,7 @@
     content: "\f005";
     font-family: FontAwesome;
     z-index: 2;
-    font-size: 16px;
+    font-size: 1.2vw;
     bottom: 0px;
     left: 0px;
     color: black;
@@ -179,7 +179,7 @@
     content: "\f290";
     font-family: FontAwesome;
     z-index: 2;
-    font-size: 16px;
+    font-size: 1.2vw;
     bottom: 0px;
     left: 0px;
     color: black;
@@ -190,9 +190,9 @@
     content: "\f067";
     font-family: FontAwesome;
     z-index: 2;
-    font-size: 8px;
+    font-size: 0.5vw;
     top: 20px;
-    left: 20px;
+    left: 1.376vw;
     color: #2424b9;
 }
 
