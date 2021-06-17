@@ -131,20 +131,8 @@ function addProduct(product, block, isLogged, favList) {
         $(`#${product.vendorcode}_price`).empty();
         $(`#${product.vendorcode}_price`).append(
             `<div class="old_price" id=${product.vendorcode}_old_price>${product.price} грн</div>`);
-        $(`#${product.vendorcode}_old_price`).css({
-            'display': 'inline-block',
-            'color': 'black',
-            'text-decoration': 'line-through blue',
-            'vertical-align': 'text-bottom',
-            'font-family': '"Montserrat", sans-serif',
-        });
         $(`#${product.vendorcode}_price`).append(
             `<div class="product_stock" id=${product.vendorcode}_stock>${product.stock} грн</div>`);
-        $(`#${product.vendorcode}_stock`).css({
-            'display': 'inline-block',
-            'font-family': '"Montserrat", sans-serif',
-            'color': 'green'
-        });
         if ($(window).width() <= '1200') {
             $(`#${product.vendorcode}_price`).css({'font-size': '18px', 'line-height': '30px'});
         }

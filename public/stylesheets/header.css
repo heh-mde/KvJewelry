@@ -151,7 +151,7 @@ button:focus {
     background: none;
     border: none;
     position: absolute;
-    right: 0;
+    right: 5px;
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -179,6 +179,7 @@ button:focus {
 }
 
 .mobile_menu_block {
+    margin-left: 10px;
     float: left;
     display: table;
     height: 100%;
@@ -197,6 +198,7 @@ button:focus {
     display: block;
     background-color: #ffedc3;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .mobile_menu span,
@@ -360,6 +362,9 @@ button:focus {
 @media all and (max-width: 1230px) {
     .header {
         width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 20;
     }  
 
     .search{
@@ -368,7 +373,7 @@ button:focus {
 
     .up-header{
         background: #324b4e;
-        height: 16vw;
+        height: 14vw;
     }
 
     .menu_button{
@@ -412,13 +417,15 @@ button:focus {
     }
 
     .search{
-        top: 25%;
-        height: 50%;
+        top: 35%;
+        height: 45%;
+        width: 40%;
     }
 
     .search_input{
         font-size: 16px;
         height: 100%;
+        width: 100%;
     }
 
     .search_input:focus{

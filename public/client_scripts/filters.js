@@ -1,6 +1,6 @@
 function displayFilterDropdown(num) {
-    var dropDown = document.getElementById(`dropDown${num}`);
-    var icon = document.getElementById(`filter_icon${num}`);
+    let dropDown = document.getElementById(`dropDown${num}`);
+    let icon = document.getElementById(`filter_icon${num}`);
     if (dropDown.classList.contains('showDrop')) {
         dropDown.className = "hideDrop";
         icon.className = "fa-angle-double-down"

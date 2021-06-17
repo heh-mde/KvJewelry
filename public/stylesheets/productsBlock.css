@@ -44,23 +44,28 @@
 }
 
 .product_price {
-    line-height: 3vw;
     /*40*/
-    height: 3vw;
     text-align: center;
     font-size: 1.3vw;
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
+    margin: 10px 0 0 0;
 }
 
 .product_stock {
-    width: 50%;
+    width: 100%;
     font-size: 1.3vw;
+    font-family: Montserrat, sans-serif;
+    color: green;
 }
 
 .old_price {
-    width: 40%;
+    width: 100%;
     font-size: 0.95vw;
+    color: black;
+    text-decoration: line-through red;
+    margin: 0 auto;
+    font-family: Montserrat, sans-serif;
 }
 
 .product_info_block {
@@ -92,7 +97,7 @@
 
 .available::before {
     position: absolute;
-    right: 0;
+    right: -5px;
     top: 10px;
     font-family: FontAwesome;
     color: green;
@@ -103,7 +108,7 @@
 
 .unavailable::before {
     position: absolute;
-    right: 0;
+    right: -5px;
     top: 10px;
     font-family: FontAwesome;
     color: red;
@@ -115,11 +120,11 @@
 
 @media all and (max-width: 1000px) {
     .available::before {
-        right: 5px;
+        right: 10px;
     }
 
     .unavailable::before {
-        right: 5px;
+        right: 10px;
     }
 }
 
@@ -235,8 +240,6 @@
     }
 
     .product_price {
-        height: 50px;
-        line-height: 50px;
         font-size: 25px;
     }
 
@@ -269,7 +272,7 @@
 
 @media all and (max-width: 462px) {
     .product {
-        height: 310px; 
+        height: 310px;
     }
 }
 
@@ -297,6 +300,6 @@
     }
 
     .product_image {
-        width: 20.24671vh;
+        width: 95%;
     }
 }
