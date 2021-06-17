@@ -83,25 +83,15 @@ function changeFilter(id, filter) {
     without_filter = getWithoutParam(filter);
     if (checkBox.checked) {
         current_filter += id + ","
-<<<<<<< Updated upstream
-        window.history.pushState("object or string", "Title", `${pathname}${without_filter}${filter}=${current_filter}`);
-    } else {
-        current_filter = current_filter.replace(id + ',', '');
-        if (current_filter !== "") {
-            current_filter = filter + "=" + current_filter;
-        } else {
-            without_filter = without_filter.slice(0, -1);
-=======
         window.history.pushState("object or string", "Title", `${pathname}?${without_filter}&${filter}=${current_filter}`);
     }
     else{
         current_filter = current_filter.replace(id+',', '');
-        if (current_filter != ""){
+        if (current_filter !== ""){
             current_filter = '&' + filter + "=" + current_filter;
         }
         else{
             without_filter = without_filter.slice(0,-1);
->>>>>>> Stashed changes
         }
         window.history.pushState("object or string", "Title", `${pathname}?${without_filter}${current_filter}`);
     }
