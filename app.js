@@ -163,15 +163,19 @@ app.get("/isLogged", function (req, res) {
 });
 
 app.get("/favorites", async function (req, res) {
-    await favorites.getFavorites(req.session.user.user_id)
-        .then((data) => {
-            let favList = [];
-            for (let obj of data) {
-                favList.push(obj.VendorCode);
-            }
-            res.json({data: favList});
-        })
-        .catch(() => res.sendStatus(500));
+    if (!req.session.user) {
+        res.sendStatus(403);
+    } else {
+        await favorites.getFavorites(req.session.user.user_id)
+            .then((data) => {
+                let favList = [];
+                for (let obj of data) {
+                    favList.push(obj.VendorCode);
+                }
+                res.json({data: favList});
+            })
+            .catch(() => res.sendStatus(500));
+    }
 });
 
 app.post("/favorites", async function (req, res) {

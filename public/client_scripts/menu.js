@@ -12,30 +12,12 @@ $(function () {
             $('.nav').removeClass('nav--active');
             $('.nav').css({'display': 'none'});
         }
-    })
-
-    let docEl = $(document);
-    let fadeEl = $('.fade');
-
-    docEl.on('scroll', function () {
-        let curScrollPos = docEl.scrollTop();
-        
-        fadeEl.each(function () {
-            let $this = $(this);
-            let elemOffsetPos = $this.offset().top;
-
-
-            if (curScrollPos + $(window).height() > elemOffsetPos) {
-                $this.css('opacity', 0 + (curScrollPos - 120 + $(window).height() - elemOffsetPos) / $this.height());
-            }
-        })
-
-    })
+    });
 })
 
 function displayNavDropdown(item) {
-    var dropDown = document.getElementById(`dropDown_${item}`);
-    var icon = document.getElementById(`nav_icon_${item}`);
+    let dropDown = document.getElementById(`dropDown_${item}`);
+    let icon = document.getElementById(`nav_icon_${item}`);
     if (dropDown.classList.contains('showNavDrop')) {
         dropDown.className = "hideNavDrop";
         icon.className = "fa-angle-double-down"

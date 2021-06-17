@@ -10,12 +10,11 @@
 }
 
 hr {
-    font-size: 30px;
+    font-size: 2.2vw;
     background-color: brown;
     color: brown;
-    height: 3px;
+    height: 0.264vw;
     border: none;
-    margin-bottom: 30px;
 }
 
 .banner_main_image {
@@ -36,7 +35,7 @@ hr {
     top: 50%;
     width: 100%;
     margin-top: -0.625em;
-    font-size: 22px;
+    font-size: 1.6vw;
     letter-spacing: .1em;
     font-family: 'Montserrat', sans-serif;
 }
@@ -71,7 +70,7 @@ hr {
 }
 
 .banner_main_link:hover:before {
-    transform: translate(10px, 10px);
+    transform: translate(0.688vw, 0.688vw);
 }
 
 @media all and (max-width: 1200px) {
@@ -92,6 +91,29 @@ hr {
     .banner_main_image p {
         font-size: 19px;
     }
+
+    .new_divider {
+        font-size: 3vw;
+    }
+
+    .new_divider_link {
+        font-size: 2vw;
+    }
+}
+
+@media all and (min-width: 1000px) {
+    .new_divider {
+        font-size: 2.2vw;
+        padding-bottom: 0.4128vw;
+    }
+
+    .new_divider_link {
+        font-size: 1.7vw;
+    }
+
+    .new_divider_line {
+        margin: 0px 0.5vw;
+    }
 }
 
 @media all and (max-width: 600px) {
@@ -101,7 +123,7 @@ hr {
     }
 
     .banner_main_image {
-        margin: 10px auto;
+        margin: 20px auto;
     }
 
     .banner_main_link {
@@ -117,6 +139,19 @@ hr {
     .banner_main_link:hover:before {
         transform: translate(5px, 5px);
     }
+
+    .new_divider {
+        font-size: 5vw;
+    }
+
+    .new_divider_link {
+        font-size: 5vw;
+        padding: 0px;
+    }
+
+    .new_divider_line {
+        margin: 0px 7px;
+    }
 }
 
 @media all and (max-width: 400px) {
@@ -128,32 +163,26 @@ hr {
 .divider {
     display: flex;
     margin: 0;
+    justify-content: center;
+    align-items: center;
 }
 
 .new_divider {
     margin: 0;
     display: block;
-    font-size: 30px;
 }
 
 .new_divider_line {
     width: 100%;
-    align-self: flex-end;
-    display: block;
-    margin-left: 20px;
-    margin-bottom: 5px;
 }
 
 .new_divider_link {
     display: block;
     text-decoration: none;
-    font-size: 22px;
     color: #2b13b3;
     font-family: FontAwesome;
     z-index: 1;
-    padding-left: 7px;
-    flex-shrink: 0;
-    align-self: center;
+    flex-shrink: 0; 
 }
 
 .new_divider_link:after {

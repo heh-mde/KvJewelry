@@ -42,7 +42,7 @@ function getOne(vendorcode, isLogged, favList) {
             price.append(`<div class="product_price">${product.price} грн</div>`);
             price.append(`<div class="product_discounted_price">${product.stock} грн</div>`);
             $(`.product_price`).css({
-                'text-decoration': 'line-through red 2px',
+                'text-decoration': 'line-through blue 2px',
                 'padding': '10px 0 20px 20px',
                 'font-size': '26px'
             })
@@ -131,20 +131,8 @@ function addProduct(product, block, isLogged, favList) {
         $(`#${product.vendorcode}_price`).empty();
         $(`#${product.vendorcode}_price`).append(
             `<div class="old_price" id=${product.vendorcode}_old_price>${product.price} грн</div>`);
-        $(`#${product.vendorcode}_old_price`).css({
-            'display': 'inline-block',
-            'color': 'black',
-            'text-decoration': 'line-through blue',
-            'vertical-align': 'text-bottom',
-            'font-family': '"Montserrat", sans-serif',
-        });
         $(`#${product.vendorcode}_price`).append(
             `<div class="product_stock" id=${product.vendorcode}_stock>${product.stock} грн</div>`);
-        $(`#${product.vendorcode}_stock`).css({
-            'display': 'inline-block',
-            'font-family': '"Montserrat", sans-serif',
-            'color': 'green'
-        });
         if ($(window).width() <= '1200') {
             $(`#${product.vendorcode}_price`).css({'font-size': '18px', 'line-height': '30px'});
         }

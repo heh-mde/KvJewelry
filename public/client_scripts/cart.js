@@ -232,7 +232,7 @@ async function addElementToCart(vendorCode, productName, amount, container) {
     });
 }
 
-function addBasket(){
+function addBasket() {
     let cart = JSON.parse(window.localStorage.getItem('cart'));
     let cartSize = 0;
     for (const product in cart) {

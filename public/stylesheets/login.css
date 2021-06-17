@@ -11,25 +11,31 @@
 
 @media all and (max-width: 992px) {
     .content_container {
-        width: 750px;
+        width: 80%;
+    }
+    .login_form_container, .register_form_container {
+        width: 555px;
     }
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 600px) {
     .content_container {
-        width: 550px;
+        width: 80%;
+    }
+    .login_form_container, .register_form_container {
+        width: 80%;
     }
 }
 
-@media all and (max-width: 575px) {
-    .content_container {
-        width: 312px;
+@media all and (min-width: 992px) {
+    .login_form_container, .register_form_container {
+        width: 60%;
     }
 }
+
 
 .login_form_container, .register_form_container {
     margin: 50px auto;
-    width: 60%;
     text-align: center;
 }
 

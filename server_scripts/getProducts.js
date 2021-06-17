@@ -9,15 +9,35 @@
 async function getSome(products, limit, search="") {
     const sql = require("mysql2");
 
-    const sqlconnection = sql.createConnection({
+    const sqlconnection = sql.createPool({
+        connectionLimit: 2,
         host: "eu-cdbr-west-01.cleardb.com",
         user: "b39c2afbce962e",
         database: "heroku_05718451e33d4b5",
         password: "7a5611a0"
     }).promise();
 
-    let regex_search = ""
+    let regex_search = "";
+    let search_condition = "";
     search = decodeURI(search);
+
+    const product_list = products.split(',');
+    products = ""
+    for (i = 0; i < product_list.length; i++) {
+        products += `'${product_list[i]}',`
+    }
+    products = products.slice(0, -1);
+
+    let full_search;
+
+    await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) AND LOWER(name) LIKE '%${search.toLowerCase()}%' ${search_condition} ORDER BY date DESC LIMIT ${limit}`)
+        .then(result => {
+            full_search = result[0];
+        })
+        .catch(err => console.log(err));
+
+    let keys_search = [];
+
     if (search != "") {
         const all_types_list = [["золот","серебр","платин","узор"], 
                                 ["обруч", "помолв"], 
@@ -46,30 +66,29 @@ async function getSome(products, limit, search="") {
                 regex_search = regex_search.slice(0,-1);
                 regex_search += ").+" 
             }
-        }
-    }
-    else{
-        regex_search = ".+"
-    }
+        }  
 
-    const product_list = products.split(',');
-    products = ""
-    for (i = 0; i < product_list.length; i++) {
-        products += `'${product_list[i]}',`
-    }
-    products = products.slice(0, -1);
-    let data;
+        if (regex_search != "") {
 
-    await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) AND LOWER(name) RLIKE '${regex_search}' ORDER BY date DESC LIMIT ${limit}`)
-        .then(result => {
-            data = result[0];
-        })
-        .catch(err => console.log(err));
+            if (full_search.length != 0) {
+                search_condition = "AND LOWER(name) NOT LIKE '%" +  search.toLowerCase() + "%'";
+            }
+
+            await sqlconnection.query(`SELECT * FROM jewelry WHERE type IN (${products}) AND LOWER(name) RLIKE '${regex_search}' ${search_condition} ORDER BY date DESC LIMIT ${limit}`)
+                .then(result => {
+                    keys_search = result[0];
+                })
+                .catch(err => console.log(err));
+        } 
+    }
 
     sqlconnection.end().catch(err => console.log(err));
 
-    return data;
+    full_search.push.apply(full_search,keys_search);
+
+    return full_search;
 }
+
 
 async function getOne(vendorcode) {
     const sql = require("mysql2");

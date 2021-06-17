@@ -103,9 +103,6 @@ button:focus {
     .mobile_menu{
         margin-left: 5px;
     }
-
-    .search_button {
-    }
 }
 
 @media all and (max-width: 515px) {
@@ -151,7 +148,7 @@ button:focus {
     background: none;
     border: none;
     position: absolute;
-    right: 0;
+    right: 5px;
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -179,6 +176,7 @@ button:focus {
 }
 
 .mobile_menu_block {
+    margin-left: 10px;
     float: left;
     display: table;
     height: 100%;
@@ -197,6 +195,7 @@ button:focus {
     display: block;
     background-color: #ffedc3;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .mobile_menu span,
@@ -335,31 +334,38 @@ button:focus {
 }
 
 @media all and (min-width: 1230px) {
-    .menu_button{
+    .menu_button {
         display: table-cell;
     }
 
-    .up-header{
+    .up-header {
         height: 20vh;
     }
 
-    #profile p{
+    #profile p {
         font-size: 1.15vw
     }
 
-    .header{
+    .header {
         width: 80%;
     }
 
-    .down-header{
+    .down-header {
         padding: 20px 0;
         width: 84%;    
+    }
+
+    .search_button {
+        font-size: 1.2vw;
     }
 }
 
 @media all and (max-width: 1230px) {
     .header {
         width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 500;
     }  
 
     .search{
@@ -368,7 +374,7 @@ button:focus {
 
     .up-header{
         background: #324b4e;
-        height: 16vw;
+        height: 14vw;
     }
 
     .menu_button{
@@ -412,13 +418,19 @@ button:focus {
     }
 
     .search{
-        top: 25%;
-        height: 50%;
+        top: 35%;
+        height: 45%;
+        width: 40%;
     }
 
     .search_input{
         font-size: 16px;
         height: 100%;
+        width: 100%;
+    }
+
+    .search_button {
+        font-size: 14px;
     }
 
     .search_input:focus{
