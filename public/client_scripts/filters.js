@@ -90,9 +90,6 @@ function changeFilter(id, filter) {
         if (current_filter !== ""){
             current_filter = '&' + filter + "=" + current_filter;
         }
-        else{
-            without_filter = without_filter.slice(0,-1);
-        }
         window.history.pushState("object or string", "Title", `${pathname}?${without_filter}${current_filter}`);
     }
 }

@@ -29,6 +29,7 @@ function getWithoutParam(param){
         else if (before_param != "?"){
             after_param = "&" + after_param;
         }
+        console.log(before_param);
         noparam = before_param + after_param;
     }
 
