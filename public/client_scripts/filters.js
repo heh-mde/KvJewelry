@@ -111,3 +111,26 @@ function highlightFilter(filter) {
         'background-color': '#f5db9c'
     });
 }
+
+function fillFilters() {
+    highlightFilter("sort");
+    checkFilter("metal");
+    checkFilter("product");
+
+    let without_page = getWithoutParam("page");
+    if (without_page == "") {
+        if ($('button').is('#reset_filters')) {
+            $('#reset_filters').remove();
+        }
+    }
+    else {
+        if (!$('button').is('#reset_filters')){
+            $('.filters_block').after('<button class="filter_button" id="reset_filters" onclick="resetFilters()">Сбросить фильтры</button>');
+        }
+    }    
+}
+
+function resetFilters() {
+    const pathname = window.location.pathname;
+    window.history.pushState("object or string", "Title", `${pathname}`);
+}

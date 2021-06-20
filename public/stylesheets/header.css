@@ -358,6 +358,10 @@ button:focus {
     .search_button {
         font-size: 1.2vw;
     }
+
+    .mobile_menu_block {
+        display: none;
+    }
 }
 
 @media all and (max-width: 1230px) {

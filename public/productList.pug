@@ -112,9 +112,11 @@
 		</div>
 	</div>
 	<ul class="pagination_block"></ul>
-	<div class="product_block"></div>
+	<div class="product_block">
+		<div class="products_loading_block"><i id="products_loading" class="fa-spinner fa-spin"></i></div>
+	</div>
 	<ul class="pagination_block"></ul>
-	<script type="text/javascript">checkFilter("metal");checkFilter("product");getAll()</script>
-	<script type="text/javascript">sessionStorage.setItem("params", window.location.search);setInterval(checkURL, 100)</script>
+	<script type="text/javascript">fillFilters();getAll()</script>
+	<script type="text/javascript">sessionStorage.setItem("params", window.location.search);setInterval(checkURL, 50)</script>
 </body>
 </html>

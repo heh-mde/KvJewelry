@@ -3,3 +3,4 @@
 quest.txt
 /.idea
 /server_scripts/password.txt
+.env

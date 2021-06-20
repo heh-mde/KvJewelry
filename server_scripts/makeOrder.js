@@ -1,7 +1,8 @@
 const {getUserById} = require("./getuser");
+const sql = require("mysql2");
+const dotenv = require('dotenv').config();
 
 async function makeAuthorizedOrder(orderObject, userId) {
-    const sql = require("mysql2");
 
     const sqlconnection = sql.createConnection({
         host: "eu-cdbr-west-01.cleardb.com",
@@ -53,7 +54,6 @@ async function makeAuthorizedOrder(orderObject, userId) {
 }
 
 async function makeUnauthorizedOrder(orderObject, userData) {
-    const sql = require("mysql2");
 
     const sqlconnection = sql.createConnection({
         host: "eu-cdbr-west-01.cleardb.com",

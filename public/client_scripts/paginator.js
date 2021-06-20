@@ -7,7 +7,7 @@ function showPaginator(page, prod_num) {
         $('.pagination_block').append(`<li class ="pagination_item"><button onclick="getPage(${page - 1})">&laquo;</button></li>`);
     }
 
-    const prodOnPage = 50;
+    const prodOnPage = 60;
     const pagenum = Math.ceil(prod_num / prodOnPage);
 
     for (let i = 0; i < pagenum; i++) {
