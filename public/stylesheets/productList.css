@@ -6,6 +6,15 @@
     min-height: 400px;
 }
 
+.products_loading_block {
+    width: 10%;
+    margin: auto;
+}
+
+#products_loading {
+    font-size: 100px;
+}
+
 .filters_block {
     display: flex;
     flex-wrap: wrap;
@@ -29,6 +38,12 @@
     border-radius: 0.344vw;
     font-size: 1.3vw;
     background-color: #ffe3c4;
+}
+
+#reset_filters {
+    display: block;
+    margin: auto;
+    width: 15%;
 }
 
 .filter_text {
@@ -228,6 +243,11 @@
         height: 30px;
         width: 30px;
         top: -7px;
+    }
+
+    #reset_filters {
+        width: 40%;
+        height: 40px;
     }
 }
 

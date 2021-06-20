@@ -5,16 +5,16 @@
  *@param {Integer} limit - Limit of products to get
  *@return {Array} List of products
  */
+const sql = require("mysql2");
+require('dotenv').config();
 
 async function getSome(products, limit, search="") {
-    const sql = require("mysql2");
-
     const sqlconnection = sql.createPool({
-        connectionLimit: 2,
-        host: "eu-cdbr-west-01.cleardb.com",
-        user: "b39c2afbce962e",
-        database: "heroku_05718451e33d4b5",
-        password: "7a5611a0"
+        connectionLimit: process.env.PROD_LIMIT,
+        host: process.env.HOST,
+        user: process.env.PROD_USER,
+        database: process.env.PROD_DB,
+        password: process.env.PROD_PW
     }).promise();
 
     let regex_search = "";
@@ -91,8 +91,6 @@ async function getSome(products, limit, search="") {
 
 
 async function getOne(vendorcode) {
-    const sql = require("mysql2");
-
     const sqlconnection = sql.createConnection({
         host: "eu-cdbr-west-01.cleardb.com",
         user: "b39c2afbce962e",

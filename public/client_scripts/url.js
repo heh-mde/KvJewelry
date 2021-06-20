@@ -29,7 +29,6 @@ function getWithoutParam(param){
         else if (before_param != "?"){
             after_param = "&" + after_param;
         }
-        console.log(before_param);
         noparam = before_param + after_param;
     }
 
@@ -46,14 +45,16 @@ function checkURL() {
     if (window.location.search != sessionStorage.getItem("params")){
         old_products = getParam("product");
         new_products = getParam("product", sessionStorage.getItem("params"));
+        $('.product_block').empty();
         if (old_products != new_products){
             getAll();
+            $('.pagination_item').remove();
+            $('.product_block').append(`<div class="products_loading_block"><i id="products_loading" class="fa-spinner fa-spin"></i>`);
         }
         else{
             show(Number(getParam("page")));
         }
-        checkFilter("metal");
-        checkFilter("product");
+        fillFilters();
         sessionStorage.setItem("params", window.location.search);
     }
 }

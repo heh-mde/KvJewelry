@@ -251,7 +251,6 @@
     .product_stock {
         font-size: 25px;
         width: 100%;
-        margin-bottom: 5px;
     }
 
     .product_image {
@@ -282,15 +281,29 @@
     }
 }
 
+@media all and (min-width: 1000px) {
+    .old_price, .product_stock {
+        display: inline-block;
+        vertical-align: text-top;
+        width: 30%;
+    }
+}
+
 @media all and (min-width: 1200px) {
     .product {
         width: 25%;
+    }
+    .old_price, .product_stock {
+        width: 40%;
     }
 }
 
 @media all and (min-width: 1466px) {
     .product {
         width: 20%;
+    }
+    .old_price, .product_stock {
+        width: 50%;
     }
 }
 
@@ -301,5 +314,13 @@
 
     .product_image {
         width: 95%;
+    }
+
+    .old_price, .product_stock {
+        width: 100%;
+    }
+
+    .product_price {
+        margin: 0px;
     }
 }

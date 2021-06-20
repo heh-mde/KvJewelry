@@ -13,7 +13,6 @@ function getAll(limit = 1000) {
 
     $.get('/getSome', {productTypes: productTypes, limit: limit, search: search}, function (products) {
         if (products == "") {
-            $('.product_block').empty();
             $('.pagination_item').remove();
             $('.product_block').append(`<div class="no_products">Нет товара<div>`);
             sessionStorage.setItem("products", "");
@@ -79,22 +78,22 @@ function getNew() {
 }
 
 async function show(page) {
-    highlightFilter("sort");
     const products_string = sessionStorage.getItem("products");
     if (products_string == "") {
         return 1;
     }
     let products = JSON.parse(products_string);
+
     products = filterProducts(products, "metal");
     products = filterProductsPrice(products);
     if (products.length == 0) {
-        $('.product_block').empty();
         $('.pagination_item').remove();
         $('.product_block').append(`<div class="no_products">Отсутвуют товары по выбраным критериям<div>`);
         getPriceSlider();
         return 1;
     }
     products = sortProducts(products);
+
     // if ($(window).width() >= '1920') {
     //     sessionStorage.setItem("prodOnPage", 60);
     // } else if ($(window).width() >= '1420') {
@@ -104,20 +103,19 @@ async function show(page) {
     // } else {
     //     sessionStorage.setItem("prodOnPage", 21);
     // }
-    const prodOnPage = 50;
+    
+    const prodOnPage = 60;
     let iter_end = page * prodOnPage;
     const page_num = Math.ceil(products.length / prodOnPage);
     if (page == page_num) {
         iter_end = products.length;
     } else if (page > page_num) {
-        $('.product_block').empty();
         $('.pagination_item').remove();
         $('.product_block').append(`<div class="no_products">Страница ${page} даного каталога не существует<div>`);
         return 1;
     }
 
     $('.product_block').empty();
-    const metal_name = JSON.parse(sessionStorage.getItem("metal_name"));
     await fetch(`/isLogged`, {
         method: 'GET'
     }).then(async (res) => {

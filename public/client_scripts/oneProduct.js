@@ -114,8 +114,9 @@ function addProduct(product, block, isLogged, favList) {
         </div>`);
     if (product.availability) {
         $(`#${product.vendorcode}.product`).find('.product_favorite').before(`<button onclick="" id="${product.type}_${product.vendorcode}" class="product_basket"></button>`);
+        $(`#${product.vendorcode}.product`).find('.product_body').addClass('available');
     }
-    $(`#${product.vendorcode}.product`).find('.product_body').addClass(`${product.availability ? 'available' : 'unavailable'}`)
+
     let favBtn = $(`#${product.vendorcode}.product`).find('.product_favorite');
     if (!isLogged) {
         favBtn.wrap('<a href="/login"></a>');
@@ -133,8 +134,8 @@ function addProduct(product, block, isLogged, favList) {
             `<div class="old_price" id=${product.vendorcode}_old_price>${product.price} грн</div>`);
         $(`#${product.vendorcode}_price`).append(
             `<div class="product_stock" id=${product.vendorcode}_stock>${product.stock} грн</div>`);
-        if ($(window).width() <= '1200') {
-            $(`#${product.vendorcode}_price`).css({'font-size': '18px', 'line-height': '30px'});
+        if ($(window).width() <= '1000') {
+            $(`#${product.vendorcode}_price`).css({'margin': '0px'});
         }
     }
 }
